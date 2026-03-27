@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Alignment Assessment — Agency vs Client</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1A1A2E;
+  --paper: #F5F0E8;
+  --cream: #EDE8DF;
+  --gold: #C9A84C;
+  --gold-light: #E8D5A0;
+  --muted: #7A7265;
+  --rule: #D4CCC0;
+  --accent-agency: #7F77DD;
+  --accent-expert: #1D9E75;
+  --accent-politics: #C9761A;
+  --accent-client: #185FA5;
+  --accent-generalist: #7A7265;
+  --serif: 'Playfair Display', Georgia, serif;
+  --mono: 'DM Mono', 'Courier New', monospace;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle grid texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ── Header ── */
+.site-header {
+  padding: 40px 0 32px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 56px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.site-header .logo {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.site-header .edition {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}
+
+/* ── Screens ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ── Intro ── */
+.intro-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.intro-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.intro-title em {
+  color: var(--gold);
+  font-style: italic;
+}
+.intro-rule {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin: 24px 0;
+}
+.intro-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 560px;
+  margin-bottom: 32px;
+}
+.intro-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.btn-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-start:hover { background: #2D2D44; }
+.btn-start .arrow { transition: transform 0.2s; }
+.btn-start:hover .arrow { transform: translateX(4px); }
+
+/* ── Progress ── */
+.progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.progress-track {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  position: relative;
+}
+.progress-fill {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.4s ease;
+}
+.progress-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ── Question ── */
+.q-dim {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.q-num {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--rule);
+  margin-bottom: 4px;
+}
+.q-text {
+  font-family: var(--serif);
+  font-size: clamp(18px, 3vw, 22px);
+  line-height: 1.45;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.q-context {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 28px;
+  padding-left: 12px;
+  border-left: 2px solid var(--gold-light);
+  line-height: 1.6;
+}
+
+.options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  position: relative;
+}
+.opt:hover { border-color: var(--ink); background: var(--cream); }
+.opt.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.06);
+}
+.opt-letter {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: color 0.15s;
+}
+.opt.selected .opt-letter { color: var(--gold); }
+.opt-text { font-size: 13px; line-height: 1.6; color: var(--ink); }
+
+.q-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.btn-ghost {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  padding: 8px 0;
+  transition: color 0.15s;
+}
+.btn-ghost:hover { color: var(--ink); }
+.btn-ghost:disabled { opacity: 0.3; cursor: default; }
+.btn-next {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-next:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+.btn-next:disabled { opacity: 0.3; cursor: default; }
+
+/* ── Result ── */
+.result-masthead {
+  padding: 40px 0 32px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 48px;
+}
+.result-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.archetype-name {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4.5vw, 40px);
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.archetype-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border: 1px solid;
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+.archetype-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 580px;
+}
+
+/* Score bars */
+.scores-section { margin-bottom: 48px; }
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+}
+.score-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.score-name {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  width: 140px;
+  flex-shrink: 0;
+}
+.score-track {
+  flex: 1;
+  height: 2px;
+  background: var(--rule);
+  position: relative;
+}
+.score-bar {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.score-pct {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  width: 36px;
+  text-align: right;
+}
+
+/* Two-column insights */
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+@media (max-width: 560px) { .insights-grid { grid-template-columns: 1fr; } }
+.insight-card {
+  border: 1px solid var(--rule);
+  padding: 20px;
+  background: var(--cream);
+}
+.insight-card-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.insight-card-text {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* Role model */
+.rolemodel-section { margin-bottom: 48px; }
+.rolemodels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+@media (max-width: 560px) { .rolemodels-grid { grid-template-columns: 1fr; } }
+.rolemodel-card {
+  border: 1px solid var(--rule);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.rolemodel-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+}
+.rolemodel-initials {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.rolemodel-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.rolemodel-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.rolemodel-why {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Recommendations */
+.rec-section { margin-bottom: 48px; }
+.rec-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.rec-num {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--rule);
+  flex-shrink: 0;
+  width: 28px;
+  line-height: 1;
+  margin-top: 2px;
+}
+.rec-content {}
+.rec-title {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.rec-text {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* Adjustments panel */
+.adj-section {
+  border: 1px solid var(--gold-light);
+  background: rgba(201,168,76,0.04);
+  padding: 24px;
+  margin-bottom: 48px;
+}
+.adj-title {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.adj-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.adj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.adj-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 5px 12px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.result-footer {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.btn-action {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  padding: 10px 18px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+}
+.btn-action:hover { background: var(--ink); color: var(--paper); }
+.btn-action.secondary { border-color: var(--rule); color: var(--muted); }
+.btn-action.secondary:hover { background: var(--cream); color: var(--ink); }
+
+/* Saved notice */
+.saved-notice {
+  display: none;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--expert);
+  letter-spacing: 0.06em;
+  padding: 8px 0;
+}
+.saved-notice.show { display: block; }
+
+/* Transition */
+.fade-in { animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.decorative-num {
+  font-family: var(--serif);
+  font-size: 96px;
+  color: var(--cream);
+  position: fixed;
+  right: -12px;
+  top: 40px;
+  z-index: 0;
+  pointer-events: none;
+  line-height: 1;
+  user-select: none;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="site-header">
+    <span class="logo">Career Compass — Assessment Vol. I</span>
+    <span class="edition">2025 Edition</span>
+  </header>
+
+  <!-- ── INTRO ── -->
+  <div id="intro" class="screen active fade-in">
+    <div class="intro-eyebrow">Self-Assessment · Office Politics · Career Fit</div>
+    <h1 class="intro-title">Agency<br>hay <em>Client-side?</em></h1>
+    <div class="intro-rule"></div>
+    <p class="intro-body">
+      18 câu hỏi về tính cách, giá trị sống và hành vi để xác định bạn phù hợp với môi trường nào nhất — 
+      và cách điều chỉnh để tối ưu hóa career path của mình.
+    </p>
+    <div class="intro-tags">
+      <span class="tag">6 dimensions</span>
+      <span class="tag">Power Dynamics</span>
+      <span class="tag">Ambiguity</span>
+      <span class="tag">Politics IQ</span>
+      <span class="tag">Identity</span>
+      <span class="tag">~8 min</span>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">
+      Bắt đầu assessment <span class="arrow">→</span>
+    </button>
+  </div>
+
+  <!-- ── QUIZ ── -->
+  <div id="quiz" class="screen">
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <span class="progress-label" id="progress-label">1 / 18</span>
+    </div>
+    <div id="q-body" class="fade-in">
+      <div class="q-dim" id="q-dim"></div>
+      <div class="q-num" id="q-num"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="q-context" id="q-context" style="display:none"></div>
+      <div class="options" id="options"></div>
+      <div class="q-nav">
+        <button class="btn-ghost" id="back-btn" onclick="goBack()">← Câu trước</button>
+        <button class="btn-next" id="next-btn" onclick="goNext()" disabled>
+          Tiếp theo <span>→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RESULT ── -->
+  <div id="result" class="screen fade-in"></div>
+</div>
+
+<div class="decorative-num" id="dec-num">01</div>
+
+<script>
+// ── Questions Data ──────────────────────────────────────────────────────
+const questions = [
+  {
+    dim: "Power Dynamics",
+    text: "Sếp vừa đưa ra quyết định bạn không đồng ý, không giải thích lý do. Phản ứng tự nhiên nhất của bạn?",
+    context: null,
+    options: [
+      { letter: "A", text: "Chấp nhận và thực thi — họ có context mà mình không có", score: { client: 2, expert: 0, politics: -1 } },
+      { letter: "B", text: "Xin gặp riêng để hiểu reasoning, rồi mới quyết định có push back không", score: { client: 1, expert: 1, politics: 2 } },
+      { letter: "C", text: "Thực thi nhưng ghi nhớ để dùng làm dẫn chứng sau nếu kết quả xấu", score: { client: 0, expert: 0, politics: 3 } },
+      { letter: "D", text: "Cảm thấy bực bội — đây là điều mình không thể chịu lâu dài", score: { client: -2, expert: 2, politics: -2 } }
+    ]
+  },
+  {
+    dim: "Ambiguity",
+    text: "Client giao brief rất mơ hồ: 'Làm gì đó cool cho brand.' Không timeline, không KPI. Bạn cảm thấy thế nào?",
+    context: "Tình huống phổ biến ở agency side.",
+    options: [
+      { letter: "A", text: "Thích — khoảng trống sáng tạo này là lý do tôi làm nghề này", score: { client: -2, expert: 2, politics: 0 } },
+      { letter: "B", text: "Được, nhưng tôi sẽ lập tức đặt câu hỏi để define rõ hơn", score: { client: 1, expert: 1, politics: 1 } },
+      { letter: "C", text: "Khó chịu — không có KPI thì làm sao biết thành công", score: { client: 2, expert: 0, politics: 0 } },
+      { letter: "D", text: "Cơ hội — tôi sẽ propose cái gì đó họ chưa nghĩ tới, rồi expand scope", score: { client: -1, expert: 1, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Identity",
+    text: "Khi giới thiệu bản thân ở bữa tiệc networking, bạn thường nói gì trước tiên?",
+    context: null,
+    options: [
+      { letter: "A", text: "Tên công ty / nơi làm việc ('Tôi đang ở [công ty X]')", score: { client: 2, expert: -1, politics: 1 } },
+      { letter: "B", text: "Chuyên môn ('Tôi làm về UX research / performance marketing...')", score: { client: -1, expert: 3, politics: -1 } },
+      { letter: "C", text: "Vấn đề tôi giải quyết ('Tôi giúp các brand F&B tăng retention')", score: { client: 0, expert: 1, politics: 2 } },
+      { letter: "D", text: "Tùy người — tôi đọc xem họ muốn nghe gì và adapt", score: { client: 0, expert: 0, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Politics Navigation",
+    text: "Một dự án quan trọng đang bị cản trở bởi middle manager không thích bạn. Bạn làm gì?",
+    context: "Bài test core về office politics intelligence.",
+    options: [
+      { letter: "A", text: "Tiếp tục làm tốt — kết quả sẽ tự nói lên", score: { client: 0, expert: 2, politics: -2 } },
+      { letter: "B", text: "Tìm cách build relationship với manager đó, hiểu tại sao họ cản", score: { client: 1, expert: 0, politics: 2 } },
+      { letter: "C", text: "Escalate lên trên bằng data và kết quả, bypass họ", score: { client: 1, expert: 1, politics: 1 } },
+      { letter: "D", text: "Tìm ally cùng level hoặc cao hơn manager đó để tạo coalition", score: { client: 0, expert: -1, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Ownership",
+    text: "Một dự án bạn phụ trách thất bại. Trong buổi review, bạn tự nhiên làm gì?",
+    context: null,
+    options: [
+      { letter: "A", text: "Phân tích rõ ràng: đây là lỗi hệ thống, đây là lỗi execution, đây là lỗi của tôi", score: { client: 1, expert: 2, politics: 0 } },
+      { letter: "B", text: "Nhận trách nhiệm chung, không chỉ vào ai — kết quả của cả team", score: { client: 2, expert: 0, politics: 1 } },
+      { letter: "C", text: "Trình bày những gì tôi đã làm đúng trước khi nói đến vấn đề", score: { client: 0, expert: -1, politics: 2 } },
+      { letter: "D", text: "Cảm thấy rất nặng nề — thất bại của dự án là thất bại cá nhân", score: { client: -1, expert: 2, politics: -2 } }
+    ]
+  },
+  {
+    dim: "Collaboration",
+    text: "Bạn thích làm việc theo cơ cấu nào nhất?",
+    context: null,
+    options: [
+      { letter: "A", text: "Một team nhỏ, tôi là expert, có PM bảo vệ tôi khỏi noise bên ngoài", score: { client: -1, expert: 3, politics: -2 } },
+      { letter: "B", text: "Cross-functional, tôi phải pitch và align nhiều stakeholder", score: { client: 2, expert: 0, politics: 2 } },
+      { letter: "C", text: "Tôi tự chạy một số thứ, rồi pull người vào khi cần", score: { client: -1, expert: 1, politics: 1 } },
+      { letter: "D", text: "Không quan trọng cơ cấu — tôi adapt theo môi trường", score: { client: 0, expert: 0, politics: 2 } }
+    ]
+  },
+  {
+    dim: "Power Dynamics",
+    text: "Bạn có nhiều expertise hơn người đang manage bạn. Điều này khiến bạn...",
+    context: null,
+    options: [
+      { letter: "A", text: "Thoải mái — manager giỏi không cần biết hết technical detail", score: { client: 2, expert: 1, politics: 1 } },
+      { letter: "B", text: "Khó chịu âm thầm — khó tin tưởng người không hiểu công việc của mình", score: { client: -2, expert: 2, politics: -2 } },
+      { letter: "C", text: "Cơ hội để educate và tăng influence với họ", score: { client: 0, expert: 1, politics: 3 } },
+      { letter: "D", text: "Bình thường — đây là lý do tôi ở đây, để fill the gap", score: { client: 1, expert: 2, politics: 0 } }
+    ]
+  },
+  {
+    dim: "Ambiguity",
+    text: "Công ty thay đổi strategy giữa chừng, công việc của bạn thay đổi đáng kể. Phản ứng đầu tiên?",
+    context: null,
+    options: [
+      { letter: "A", text: "Lo lắng — tôi cần biết rõ direction mới trước khi bắt đầu", score: { client: 1, expert: -1, politics: -1 } },
+      { letter: "B", text: "Tò mò — pivot thường có story đằng sau, tôi muốn hiểu tại sao", score: { client: 1, expert: 1, politics: 2 } },
+      { letter: "C", text: "Thích nghi ngay — tôi học qua làm, không cần plan hoàn hảo", score: { client: -1, expert: 1, politics: 0 } },
+      { letter: "D", text: "Tính toán xem thay đổi này ảnh hưởng thế nào đến vị trí của mình", score: { client: 0, expert: -1, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Identity",
+    text: "Điều gì khiến bạn tự hào nhất trong career?",
+    context: null,
+    options: [
+      { letter: "A", text: "Một kết quả business cụ thể tôi đã deliver (doanh số, tăng trưởng...)", score: { client: 2, expert: 0, politics: 1 } },
+      { letter: "B", text: "Một sản phẩm, campaign hay công trình tôi tự hào về chất lượng craft", score: { client: -1, expert: 3, politics: -1 } },
+      { letter: "C", text: "Một mối quan hệ, team hay culture tôi đã xây dựng", score: { client: 1, expert: -1, politics: 2 } },
+      { letter: "D", text: "Tôi đã thay đổi cách một tổ chức nghĩ về một vấn đề", score: { client: 0, expert: 1, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Politics Navigation",
+    text: "Bạn phát hiện một đồng nghiệp cùng level đang 'chơi xấu' để có lợi thế hơn bạn. Bạn làm gì?",
+    context: null,
+    options: [
+      { letter: "A", text: "Nói thẳng với họ — transparency trước tiên", score: { client: 0, expert: 2, politics: -1 } },
+      { letter: "B", text: "Không làm gì — karma sẽ xử lý, tôi không chơi trò đó", score: { client: -1, expert: 1, politics: -3 } },
+      { letter: "C", text: "Âm thầm document và build evidence, chờ thời điểm phù hợp", score: { client: 1, expert: 0, politics: 2 } },
+      { letter: "D", text: "Đánh giá xem họ là threat thật không, rồi điều chỉnh strategy", score: { client: 0, expert: -1, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Ownership",
+    text: "Dự án rất thú vị nhưng không có kết quả kinh doanh rõ ràng ngắn hạn. Sếp muốn cut. Bạn làm gì?",
+    context: null,
+    options: [
+      { letter: "A", text: "Chấp nhận — nếu không có business case rõ ràng, tôi hiểu tại sao cut", score: { client: 2, expert: -1, politics: 0 } },
+      { letter: "B", text: "Fight for it — present long-term case, xin thêm thời gian để prove value", score: { client: 0, expert: 2, politics: 1 } },
+      { letter: "C", text: "Đàm phán: cut scope để giữ core, không bỏ hẳn", score: { client: 1, expert: 1, politics: 2 } },
+      { letter: "D", text: "Cảm thấy demotivated sâu sắc — là dấu hiệu để rethink về nơi làm việc", score: { client: -2, expert: 2, politics: -2 } }
+    ]
+  },
+  {
+    dim: "Collaboration",
+    text: "Bạn cần output tốt nhất từ một designer giỏi nhưng rất opinionated. Cách tiếp cận?",
+    context: "Đánh giá collaboration style và power navigation.",
+    options: [
+      { letter: "A", text: "Đưa brief rõ ràng + KPI, execution là của họ", score: { client: 2, expert: 0, politics: 0 } },
+      { letter: "B", text: "Collaborative session: cùng explore problem, không đưa solution sẵn", score: { client: 0, expert: 1, politics: 1 } },
+      { letter: "C", text: "Hỏi về portfolio + quan điểm của họ trước, rồi position brief theo đó", score: { client: 0, expert: 0, politics: 3 } },
+      { letter: "D", text: "Thẳng thắn về constraint, rồi give them full creative freedom", score: { client: 1, expert: 1, politics: 0 } }
+    ]
+  },
+  {
+    dim: "Power Dynamics",
+    text: "Bạn biết mình đang underpaid so với peer ở công ty khác. Bạn làm gì?",
+    context: null,
+    options: [
+      { letter: "A", text: "Research benchmark, compile data, xin gặp manager và present case bằng số liệu", score: { client: 1, expert: 1, politics: 2 } },
+      { letter: "B", text: "Bắt đầu interview nơi khác để có offer làm leverage", score: { client: 0, expert: 1, politics: 3 } },
+      { letter: "C", text: "Nói thẳng với manager: 'Tôi biết market rate, tôi muốn được review'", score: { client: 0, expert: 2, politics: 0 } },
+      { letter: "D", text: "Chờ review cycle thường niên và raise tại đó", score: { client: 2, expert: -1, politics: -2 } }
+    ]
+  },
+  {
+    dim: "Ambiguity",
+    text: "Bạn được offer job: title nghe hay, scope chưa rõ, team chưa có, budget chưa define. Bạn...",
+    context: "Phổ biến ở startup và client-side innovation roles.",
+    options: [
+      { letter: "A", text: "Hứng khởi — 'blank canvas' là điều tôi tìm kiếm", score: { client: -1, expert: 1, politics: 1 } },
+      { letter: "B", text: "Cẩn thận — đặt nhiều câu hỏi, negotiate rõ deliverable trước khi nhận", score: { client: 1, expert: 1, politics: 1 } },
+      { letter: "C", text: "Từ chối — ambiguity ở level đó là risk quá lớn với tôi", score: { client: 1, expert: 0, politics: -2 } },
+      { letter: "D", text: "Nhận nhưng ngay lập tức bắt tay vào define territory của mình", score: { client: 0, expert: 0, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Identity",
+    text: "Sau 5 năm làm agency side, bạn sẽ mô tả mình như thế nào?",
+    context: null,
+    options: [
+      { letter: "A", text: "Tôi đã serve 50+ brands — tôi hiểu nhiều industry hơn hầu hết mọi người", score: { client: -2, expert: 1, politics: 0 } },
+      { letter: "B", text: "Tôi đã học cách pitch, sell, và manage expectation giỏi hơn bất kỳ client nào", score: { client: 0, expert: 0, politics: 2 } },
+      { letter: "C", text: "Tôi muốn deep vào một industry, làm gì đó có impact lớn hơn", score: { client: 2, expert: 1, politics: 0 } },
+      { letter: "D", text: "Đang build reputation để có thể chọn client, không bị chọn", score: { client: -1, expert: 1, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Politics Navigation",
+    text: "Một quyết định lớn sắp được đưa ra. Bạn có view mạnh nhưng chưa được invite vào room. Bạn làm gì?",
+    context: null,
+    options: [
+      { letter: "A", text: "Viết memo/doc ngắn, share với người có quyền quyết định trước meeting", score: { client: 1, expert: 1, politics: 2 } },
+      { letter: "B", text: "Tìm ai đó trong room và brief họ về quan điểm của mình", score: { client: 0, expert: 0, politics: 3 } },
+      { letter: "C", text: "Request to be included — nói thẳng rằng tôi có input quan trọng", score: { client: 1, expert: 2, politics: 1 } },
+      { letter: "D", text: "Đợi kết quả rồi give feedback sau — không phải việc mình chen vào", score: { client: 0, expert: 0, politics: -3 } }
+    ]
+  },
+  {
+    dim: "Ownership",
+    text: "Sự thỏa mãn sâu nhất trong công việc đến với bạn khi nào?",
+    context: null,
+    options: [
+      { letter: "A", text: "Khi tôi làm ra thứ tôi tự hào về craft — đẹp, elegant, well-executed", score: { client: -1, expert: 3, politics: -1 } },
+      { letter: "B", text: "Khi team của tôi grow nhờ môi trường tôi tạo ra", score: { client: 1, expert: -1, politics: 2 } },
+      { letter: "C", text: "Khi business metric move theo hướng tôi đã predict và contribute vào", score: { client: 2, expert: 0, politics: 1 } },
+      { letter: "D", text: "Khi tôi thuyết phục được một room đông người thay đổi quan điểm", score: { client: 0, expert: 0, politics: 3 } }
+    ]
+  },
+  {
+    dim: "Collaboration",
+    text: "Cuối cùng: bạn sợ nhất điều gì trong môi trường làm việc?",
+    context: null,
+    options: [
+      { letter: "A", text: "Làm việc mà không hiểu 'why' — execute mà không có context lớn hơn", score: { client: -1, expert: 2, politics: -1 } },
+      { letter: "B", text: "Bị stuck trong tổ chức không có room để grow hoặc move lên", score: { client: 0, expert: 0, politics: 2 } },
+      { letter: "C", text: "Không có đủ resources hoặc mandate để làm tốt công việc", score: { client: 2, expert: 1, politics: 0 } },
+      { letter: "D", text: "Làm việc tốt nhưng bị overlooked vì không biết cách make it visible", score: { client: 0, expert: 1, politics: 2 } }
+    ]
+  }
+];
+
+// ── Archetype Definitions ─────────────────────────────────────────────
+const archetypes = {
+  craftsman: {
+    key: "craftsman",
+    name: "The Craftsman",
+    tag: "Agency · Expert",
+    color: "#7F77DD",
+    colorLight: "rgba(127,119,221,0.08)",
+    desc: "Bạn thrives ở môi trường agency vì được tiếp xúc với nhiều context và challenge đa dạng. Craft và chất lượng là identity của bạn — bạn coi đó không chỉ là công việc mà là biểu đạt bản thân. Office politics là thứ bạn tolerate, không phải enjoy.",
+    personality: "Bạn là người có tiêu chuẩn cá nhân cao, đôi khi cao hơn cả tiêu chuẩn của tổ chức. Bạn cần được làm việc trong môi trường mà expertise được trân trọng, không bị biến thành commodity. Khi không được làm việc tốt, bạn chọn rời đi thay vì thỏa hiệp.",
+    strengths: ["Deep expertise và technical mastery", "Creative ownership mạnh mẽ", "Output quality cao và consistent", "Intellectual honesty — không sell những gì không tin"],
+    blindspots: ["Có thể frustrate khi phải 'sell' nhiều hơn 'làm'", "Đôi khi underestimate tầm quan trọng của visibility", "Có thể bị exploit bởi người biết dùng craft của bạn mà không give credit"],
+    recommendations: [
+      { title: "Build a 'craft-to-business' bridge", text: "Học cách translate chất lượng craft thành ngôn ngữ business metrics. Điều này không phải compromise — đây là kỹ năng giúp bạn bảo vệ công việc của mình." },
+      { title: "Tìm người champion cho bạn", text: "Agency phù hợp nhất khi bạn có một account director hoặc ECD hiểu và 'bán' được vision của bạn. Invest vào mối quan hệ đó." },
+      { title: "Xây dựng external reputation", text: "Portfolio, awards, speaking — reputation bên ngoài công ty là leverage tốt nhất để bạn có quyền chọn project và client." },
+      { title: "Cân nhắc independent consulting", text: "Nếu bạn muốn minimize politics tối đa, independent consulting hoặc boutique agency nhỏ cho phép bạn chọn context làm việc tốt hơn." }
+    ],
+    adjustments: ["Học một pitch framework cơ bản", "Tham gia một business review mỗi quý", "Network với account side không chỉ creative side", "Track impact của work bằng số liệu"],
+    rolemodels: [
+      { name: "David Droga", title: "Founder, Droga5 → Accenture Song", why: "Craftsman biết cách build business impact từ creative excellence. Từ agency founder thành global creative lead.", initials: "DD" },
+      { name: "Virgil Abloh", title: "Designer, Artist, Creative Director", why: "Chứng minh craft-driven identity có thể scale thành global cultural force mà không mất integrity.", initials: "VA" },
+      { name: "Dieter Rams", title: "Industrial Designer, Braun/Vitsœ", why: "Định nghĩa lại cả một ngành thông qua obsession về craft và principles. Less, but better.", initials: "DR" }
+    ]
+  },
+  domainExpert: {
+    key: "domainExpert",
+    name: "The Domain Expert",
+    tag: "Client-side · Expert",
+    color: "#1D9E75",
+    colorLight: "rgba(29,158,117,0.08)",
+    desc: "Bạn cần ownership và long-term impact. Agency sẽ frustrate bạn vì shallow engagement — bạn muốn đào sâu vào một industry, hiểu nó từ bên trong, và thực sự thay đổi nó theo thời gian.",
+    personality: "Bạn không thỏa mãn với việc 'touch and go'. Bạn muốn hiểu cơ cấu vận hành thực sự của một tổ chức, không chỉ deliverable. Bạn xây dựng expertise chuyên sâu và identity của bạn gắn liền với domain đó, không phải với agency bạn làm.",
+    strengths: ["Deep domain focus tạo ra compound advantage theo thời gian", "Long-term thinking, không bị distract bởi short-term wins", "Genuine product/service ownership và accountability", "Thường là người 'biết nhất' trong room về domain của mình"],
+    blindspots: ["Internal politics ở client-side phức tạp hơn agency nhiều", "Có thể bị bypass bởi người kém expertise hơn nhưng political hơn", "Risk bị 'expertise trap' — quá focus vào being right thay vì being effective"],
+    recommendations: [
+      { title: "Build political intelligence song song với expertise", text: "Client-side không thưởng expertise thuần túy — nó thưởng cho expertise được đóng gói trong influence. Học cách identify và align với decision-makers." },
+      { title: "Tìm một 'organizational sponsor'", text: "Ai đó senior sẵn sàng champion cho bạn trong các cuộc họp bạn không được mời. Đây là asset quan trọng nhất ở client-side." },
+      { title: "Develop stakeholder communication skills", text: "Giỏi nhất vẫn vô ích nếu không communicate được. Học cách present insights theo executive language, không chỉ technical language." },
+      { title: "Think about career capital defensibility", text: "Domain expertise là moat tốt khi domain đó không bị disrupt. Ensure bạn cũng build transferable skills." }
+    ],
+    adjustments: ["Attend một leadership program hoặc executive course", "Volunteer cho cross-functional projects", "Build relationship với CFO/CMO side, không chỉ technical peers", "Write internally — docs, memos, proposals — để tạo visibility"],
+    rolemodels: [
+      { name: "Reed Hastings", title: "Co-founder & former CEO, Netflix", why: "Domain expert trong entertainment + tech. Biến deep understanding thành tổ chức định nghĩa lại cả ngành.", initials: "RH" },
+      { name: "Sheryl Sandberg", title: "COO Facebook (Meta)", why: "Expert trong operations và growth biết cách translate expertise thành organizational influence ở client-side tốt nhất.", initials: "SS" },
+      { name: "Bob Iger", title: "CEO, The Walt Disney Company", why: "Từ expert trong content và media, build thành visionary operator hiểu cả craft lẫn business của entertainment.", initials: "BI" }
+    ]
+  },
+  strategicOperator: {
+    key: "strategicOperator",
+    name: "The Strategic Operator",
+    tag: "Agency · Political",
+    color: "#C9761A",
+    colorLight: "rgba(201,118,26,0.08)",
+    desc: "Bạn không chỉ biết làm — bạn biết cách navigate, position và win. Agency phù hợp vì bạn thích game của việc win business, build relationships và move pieces on the board.",
+    personality: "Bạn đọc người rất nhanh và biết cách frame mọi thứ theo góc nhìn người khác muốn nghe. Bạn enjoy việc pitch và xây dựng trust với client. Influence là kỹ năng bạn coi trọng không kém gì execution.",
+    strengths: ["Relationship-first mindset tạo long-term client loyalty", "Biết cách manage up và sideways trong tổ chức", "Strong at framing, pitching và selling ideas", "Thăng tiến nhanh trong agency environment"],
+    blindspots: ["Đôi khi có thể prioritize positioning hơn actual output quality", "Có nguy cơ được xem là 'too political' — cần balance với genuine substance", "Team có thể cảm thấy bị dùng như công cụ nếu không invest vào relationships thật"],
+    recommendations: [
+      { title: "Pair strategic skill với creative/technical credibility", text: "Operator mạnh nhất ở agency là người vừa biết navigate vừa có substantive opinion về craft. Đừng để bị label là 'just a suit'." },
+      { title: "Build a reputation for follow-through", text: "Political capital bị mất nhanh nhất khi over-promise và under-deliver. Reputation cho accountability là moat lâu dài." },
+      { title: "Invest vào team genuinely", text: "Operator giỏi cần people giỏi. Build culture nơi creative talent muốn làm việc với bạn — đó là competitive advantage thật." },
+      { title: "Consider founding your own agency", text: "Agency environment give bạn nhiều nhất khi bạn có equity và autonomy. Nếu có vision, con đường founder là natural next step." }
+    ],
+    adjustments: ["Spend 1 ngày mỗi tháng với creative/strategy team để hiểu production realities", "Institute regular feedback loops với team về leadership style", "Track win rate và revenue metrics closely — đây là ngôn ngữ bạn nói tốt nhất"],
+    rolemodels: [
+      { name: "Martin Sorrell", title: "Founder, WPP & S4 Capital", why: "Đỉnh cao của strategic operator trong agency world — built global empire từ ability to navigate, acquire và integrate.", initials: "MS" },
+      { name: "Richard Edelman", title: "CEO, Edelman PR", why: "Biến một family PR firm thành global powerhouse bằng cách liên tục positioning ahead of industry shifts.", initials: "RE" },
+      { name: "Maurice Lévy", title: "Former CEO, Publicis Groupe", why: "Master deal-maker và organization navigator. Transformed Publicis từ French agency thành global holding company.", initials: "ML" }
+    ]
+  },
+  corporateNavigator: {
+    key: "corporateNavigator",
+    name: "The Corporate Navigator",
+    tag: "Client-side · Political",
+    color: "#185FA5",
+    colorLight: "rgba(24,95,165,0.08)",
+    desc: "Bạn hiểu rằng ở client-side, winning internally quan trọng không kém winning externally. Bạn build coalitions, move organizations và làm cho mọi thứ xảy ra qua con người.",
+    personality: "Bạn có tư duy về power rất rõ — không phải theo nghĩa manipulative, mà theo nghĩa bạn hiểu rằng tổ chức vận hành theo incentives và relationships, không phải theo org chart. Bạn invest vào mạng lưới nội bộ như một tài sản chiến lược.",
+    strengths: ["Stakeholder management và organizational influence", "Biết cách make things happen qua con người", "Strong at prioritization — focus vào những gì thực sự move the needle", "Usually on the right side of major organizational changes"],
+    blindspots: ["Cần đảm bảo có đủ hard skill/expertise để back up influence", "Có thể bị seen as maneuvering nếu không genuine", "Influence without delivery record is short shelf life"],
+    recommendations: [
+      { title: "Build một 'proof of substance' portfolio", text: "Mỗi political win cần được backed bởi delivery win. Ensure bạn có track record cụ thể và measurable để point to." },
+      { title: "Develop một functional expertise sâu hơn", text: "Navigator giỏi nhất ở client-side thường là người có deep expertise trong ít nhất một function — tài chính, ops, marketing, product. Đó là credibility anchor." },
+      { title: "Build external network ngoài công ty", text: "Internal network là quan trọng nhưng external network cho bạn market intelligence và leverage khi needed." },
+      { title: "Cân nhắc C-suite hoặc general management track sớm", text: "Skill set của bạn phát huy tốt nhất ở level có broad mandate. Chief of Staff, VP, GM roles cho phép bạn combine influence với authority." }
+    ],
+    adjustments: ["Quarterly review deliverables của mình bằng mắt của một skeptic", "Build một analytical skill (finance, data) nếu chưa có", "Communicate intentions clearly hơn — giảm ambiguity trong communication style", "Mentor someone junior — tốt cho reputation và perspective"],
+    rolemodels: [
+      { name: "Indra Nooyi", title: "Former CEO, PepsiCo", why: "Navigator xuất sắc — từ strategy consultant thành CEO bằng cách liên tục build relevance và align với thế hệ lãnh đạo kế tiếp.", initials: "IN" },
+      { name: "Tim Cook", title: "CEO, Apple Inc.", why: "Classic corporate navigator — understands how to inherit power, then expand it through operations mastery và relationship management.", initials: "TC" },
+      { name: "Nguyễn Thị Phương Thảo", title: "CEO, VietJet Air", why: "Navigate through regulatory complexity và industry skepticism để build Vietnam's first private airline. Operational intelligence + political acumen.", initials: "NT" }
+    ]
+  },
+  generalist: {
+    key: "generalist",
+    name: "The Adaptive Generalist",
+    tag: "Hybrid",
+    color: "#7A7265",
+    colorLight: "rgba(122,114,101,0.08)",
+    desc: "Bạn có thể thích nghi và perform tốt trong nhiều môi trường khác nhau. Đây là một strength thực sự, nhưng cũng là dấu hiệu để clarify sâu hơn: bạn muốn tối ưu hóa cho điều gì trong 5 năm tới?",
+    personality: "Bạn có context-switching ability cao và đọc được người, môi trường nhanh. Bạn thường là connector trong team — người bridge được giữa creative và business, giữa agency và client. Bạn không phải 'jack of all trades, master of none' — mà thường có expertise nhưng chưa double down vào nó.",
+    strengths: ["Flexibility và adaptability cao trong nhiều môi trường", "Ability to bridge agency và client thinking", "Thường là người connector và translator trong team", "Low ego attachment giúp collaboration dễ dàng hơn"],
+    blindspots: ["Thiếu một clear identity có thể làm yếu positioning trong career market", "Có nguy cơ bị undervalued vì không perceived là specialist", "Đôi khi flexibility là cách tránh commitment thay vì genuine strength"],
+    recommendations: [
+      { title: "Clarify your 'spike'", text: "Generalist thành công nhất là người có một expertise rõ ràng, sau đó layer thêm breadth. Tìm một domain hoặc skill để intentionally go deep hơn trong 12 tháng tới." },
+      { title: "Consider hybrid roles deliberately", text: "In-house agency, consulting arm của corporation, hoặc growth/strategy roles ở startup phù hợp nhất với profile này — không nên settle ngẫu nhiên, mà chọn có chủ đích." },
+      { title: "Build a point of view", text: "Generalists được nhớ đến khi có strong opinions well-argued. Develop 1-2 perspectives về industry, methodology hoặc approach mà bạn willing to defend consistently." },
+      { title: "Do the agency AND client experiment", text: "Nếu chưa làm cả hai, thử có chủ đích. 2-3 năm agency, 2-3 năm client-side — so sánh energy level của bạn ở hai môi trường sẽ cho câu trả lời rõ hơn bất kỳ assessment nào." }
+    ],
+    adjustments: ["Chọn 1 skill để master trong năm tới thay vì explore nhiều", "Viết một 'career thesis' — mô tả giá trị độc đáo bạn mang lại", "Seek feedback từ 3 người biết bạn rõ về điểm mạnh thực sự", "Tham gia một community của người trong domain bạn muốn deep vào"],
+    rolemodels: [
+      { name: "Brian Chesky", title: "Co-founder & CEO, Airbnb", why: "Design background → business operator → cultural brand builder. Generalist với một strong spike trong design thinking và community.", initials: "BC" },
+      { name: "Tan Hoang Minh", title: "Entrepreneur, Vietnam", why: "Generalist khởi nghiệp thành công nhờ ability to connect dots across industries và build cross-sector relationships.", initials: "TH" },
+      { name: "Reid Hoffman", title: "Co-founder, LinkedIn / Partner, Greylock", why: "Professional generalist — philosopher, executive, investor, author. Intentional about building breadth as a strategy, not default.", initials: "RH" }
+    ]
+  }
+};
+
+// ── State ───────────────────────────────────────────────────────────────
+let current = 0;
+let answers = new Array(questions.length).fill(null);
+let sessionId = 'S-' + Date.now().toString(36).toUpperCase();
+
+function startQuiz() {
+  document.getElementById('intro').classList.remove('active');
+  document.getElementById('quiz').classList.add('active');
+  renderQ();
+}
+
+function renderQ() {
+  const q = questions[current];
+  document.getElementById('progress-fill').style.width = (current / questions.length * 100) + '%';
+  document.getElementById('progress-label').textContent = (current + 1) + ' / ' + questions.length;
+  document.getElementById('dec-num').textContent = String(current + 1).padStart(2, '0');
+  document.getElementById('q-dim').textContent = q.dim;
+  document.getElementById('q-num').textContent = 'Câu ' + (current + 1);
+  document.getElementById('q-text').textContent = q.text;
+
+  const ctx = document.getElementById('q-context');
+  if (q.context) { ctx.textContent = q.context; ctx.style.display = 'block'; }
+  else ctx.style.display = 'none';
+
+  document.getElementById('back-btn').disabled = current === 0;
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.disabled = answers[current] === null;
+  nextBtn.innerHTML = current === questions.length - 1
+    ? 'Ver resultados <span>→</span>'
+    : 'Tiếp theo <span>→</span>';
+
+  const optDiv = document.getElementById('options');
+  optDiv.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt' + (answers[current] === i ? ' selected' : '');
+    btn.innerHTML = `<span class="opt-letter">${opt.letter}</span><span class="opt-text">${opt.text}</span>`;
+    btn.onclick = () => selectOpt(i);
+    optDiv.appendChild(btn);
+  });
+
+  const body = document.getElementById('q-body');
+  body.classList.remove('fade-in');
+  void body.offsetWidth;
+  body.classList.add('fade-in');
+}
+
+function selectOpt(i) {
+  answers[current] = i;
+  document.querySelectorAll('.opt').forEach((el, j) => el.classList.toggle('selected', j === i));
+  document.getElementById('next-btn').disabled = false;
+}
+
+function goBack() {
+  if (current > 0) { current--; renderQ(); }
+}
+
+function goNext() {
+  if (answers[current] === null) return;
+  if (current < questions.length - 1) { current++; renderQ(); }
+  else computeResult();
+}
+
+// ── Scoring ─────────────────────────────────────────────────────────────
+function computeResult() {
+  let clientScore = 0, expertScore = 0, politicsScore = 0;
+  const answerLetters = [];
+
+  questions.forEach((q, i) => {
+    const s = q.options[answers[i]].score;
+    clientScore += s.client;
+    expertScore += s.expert;
+    politicsScore += s.politics;
+    answerLetters.push(q.options[answers[i]].letter);
+  });
+
+  const maxPossible = 54;
+  const agencyPct = Math.round(Math.max(0, Math.min(100, 50 - (clientScore / maxPossible * 50))));
+  const expertPct = Math.round(Math.max(0, Math.min(100, 50 + (expertScore / maxPossible * 50))));
+  const politicsPct = Math.round(Math.max(0, Math.min(100, 50 + (politicsScore / maxPossible * 50))));
+  const businessPct = 100 - expertPct;
+
+  const isAgency = agencyPct >= 50;
+  const isExpert = expertPct >= 55;
+  const isHighPolitics = politicsPct >= 55;
+
+  let archetypeKey;
+  if (isAgency && isExpert) archetypeKey = 'craftsman';
+  else if (!isAgency && isExpert && !isHighPolitics) archetypeKey = 'domainExpert';
+  else if (isAgency && isHighPolitics && !isExpert) archetypeKey = 'strategicOperator';
+  else if (!isAgency && isHighPolitics && !isExpert) archetypeKey = 'corporateNavigator';
+  else archetypeKey = 'generalist';
+
+  const arch = archetypes[archetypeKey];
+
+  // Save to localStorage (simulating backend)
+  saveResponse({
+    id: sessionId,
+    timestamp: new Date().toISOString(),
+    answers: answerLetters,
+    scores: { agency: agencyPct, expert: expertPct, politics: politicsPct, business: businessPct },
+    archetype: arch.name,
+    environment: arch.tag
+  });
+
+  showResult(arch, { agency: agencyPct, expert: expertPct, politics: politicsPct, business: businessPct });
+}
+
+// ── Save to localStorage as "backend" ──────────────────────────────────
+function saveResponse(data) {
+  let all = JSON.parse(localStorage.getItem('assessmentResponses') || '[]');
+  all.push(data);
+  localStorage.setItem('assessmentResponses', JSON.stringify(all));
+}
+
+function exportToCSV() {
+  const all = JSON.parse(localStorage.getItem('assessmentResponses') || '[]');
+  if (!all.length) { alert('Chưa có dữ liệu nào được lưu.'); return; }
+
+  const headers = [
+    'Response ID', 'Timestamp',
+    ...Array.from({length: 18}, (_, i) => `Q${i+1}`),
+    'Agency %', 'Expert %', 'Politics %', 'Business %',
+    'Archetype', 'Environment'
+  ];
+
+  const rows = all.map(r => [
+    r.id, r.timestamp,
+    ...(r.answers || []),
+    r.scores?.agency ?? '', r.scores?.expert ?? '', r.scores?.politics ?? '', r.scores?.business ?? '',
+    r.archetype ?? '', r.environment ?? ''
+  ]);
+
+  const csv = [headers, ...rows].map(row => row.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `assessment_data_${Date.now()}.csv`;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+// ── Render Result ───────────────────────────────────────────────────────
+function showResult(arch, scores) {
+  document.getElementById('quiz').classList.remove('active');
+  const rs = document.getElementById('result');
+  rs.classList.add('active');
+  document.getElementById('dec-num').textContent = '✦';
+
+  const scoreRows = [
+    { label: 'Agency orientation', value: scores.agency, color: '#7F77DD' },
+    { label: 'Expert mindset', value: scores.expert, color: '#1D9E75' },
+    { label: 'Politics intelligence', value: scores.politics, color: '#C9761A' },
+    { label: 'Business orientation', value: scores.business, color: '#185FA5' },
+  ];
+
+  rs.innerHTML = `
+    <div class="result-masthead fade-in">
+      <div class="result-eyebrow">Kết quả Assessment · ${sessionId}</div>
+      <div class="archetype-name">${arch.name}</div>
+      <div class="archetype-tag" style="border-color:${arch.color};color:${arch.color}">${arch.tag}</div>
+      <p class="archetype-desc">${arch.desc}</p>
+    </div>
+
+    <div class="scores-section fade-in">
+      <div class="section-label">Điểm số theo chiều</div>
+      ${scoreRows.map(s => `
+        <div class="score-row">
+          <span class="score-name">${s.label}</span>
+          <div class="score-track">
+            <div class="score-bar" style="width:0%;background:${s.color}" data-target="${s.value}"></div>
+          </div>
+          <span class="score-pct">${s.value}%</span>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="fade-in">
+      <div class="section-label">Tính cách & Profile</div>
+      <div class="insight-card" style="border-color:${arch.color};margin-bottom:16px">
+        <div class="insight-card-label">Personality Read</div>
+        <div class="insight-card-text">${arch.personality}</div>
+      </div>
+      <div class="insights-grid">
+        <div class="insight-card">
+          <div class="insight-card-label" style="color:${arch.color}">Điểm mạnh</div>
+          <div class="insight-card-text">
+            ${arch.strengths.map(s => `<div style="margin-bottom:6px">· ${s}</div>`).join('')}
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-card-label" style="color:#C9761A">Blind spots</div>
+          <div class="insight-card-text">
+            ${arch.blindspots.map(s => `<div style="margin-bottom:6px">· ${s}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-section fade-in">
+      <div class="section-label">Đề xuất cho bạn</div>
+      ${arch.recommendations.map((r, i) => `
+        <div class="rec-item">
+          <div class="rec-num">0${i+1}</div>
+          <div class="rec-content">
+            <div class="rec-title">${r.title}</div>
+            <div class="rec-text">${r.text}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="adj-section fade-in">
+      <div class="adj-title">Những điều chỉnh nhỏ, impact lớn</div>
+      <p class="adj-sub">Các hành động cụ thể bạn có thể bắt đầu trong tháng tới mà không cần thay đổi công việc hiện tại:</p>
+      <div class="adj-tags">
+        ${arch.adjustments.map(a => `<span class="adj-tag">${a}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="rolemodel-section fade-in">
+      <div class="section-label">Người bạn có thể học từ</div>
+      <div class="rolemodels-grid">
+        ${arch.rolemodels.map(r => `
+          <div class="rolemodel-card" style="border-color:${arch.color}30">
+            <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:${arch.color};opacity:0.4"></div>
+            <div class="rolemodel-initials" style="background:${arch.colorLight};color:${arch.color}">${r.initials}</div>
+            <div class="rolemodel-name">${r.name}</div>
+            <div class="rolemodel-title">${r.title}</div>
+            <div class="rolemodel-why">${r.why}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="result-footer fade-in">
+      <button class="btn-action" onclick="exportToCSV()">⬇ Export dữ liệu CSV</button>
+      <button class="btn-action secondary" onclick="resetQuiz()">Làm lại từ đầu</button>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:16px;line-height:1.7">
+      Câu trả lời của bạn đã được lưu vào browser storage.<br>
+      Dùng nút Export để download CSV — có thể import vào Excel backend đi kèm.
+    </div>
+  `;
+
+  // Animate score bars
+  setTimeout(() => {
+    document.querySelectorAll('.score-bar[data-target]').forEach(bar => {
+      bar.style.width = bar.dataset.target + '%';
+    });
+  }, 200);
+}
+
+function resetQuiz() {
+  current = 0;
+  answers = new Array(questions.length).fill(null);
+  sessionId = 'S-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('result').classList.remove('active');
+  document.getElementById('dec-num').textContent = '01';
+  document.getElementById('quiz').classList.add('active');
+  renderQ();
+}
+</script>
+</body>
+</html>
