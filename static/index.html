@@ -22,7 +22,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .intro-rule{width:48px;height:2px;background:var(--gold);margin:24px 0}
 .intro-body{font-size:15px;line-height:1.8;color:var(--muted);max-width:560px;margin-bottom:16px}
 .intro-disclaimer{font-size:13px;line-height:1.8;color:var(--ink);max-width:560px;margin-bottom:16px;padding:16px 20px;border:1px solid var(--rule);background:var(--cream)}
-.intro-disclaimer strong{font-weight:500;color:var(--ink)}
+.intro-disclaimer strong{font-weight:500}
 .intro-note{font-size:12px;line-height:1.7;color:var(--muted);max-width:560px;margin-bottom:32px;padding:10px 16px;border-left:2px solid var(--gold-light);font-style:italic}
 .intro-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
 .tag{font-family:var(--mono);font-size:10px;padding:4px 10px;border:1px solid var(--rule);color:var(--muted);letter-spacing:.05em}
@@ -104,14 +104,11 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <h1 class="intro-title">Agency<br>hay <em>Client-side?</em></h1>
   <div class="intro-rule"></div>
   <p class="intro-body">18 câu hỏi để xác định bạn phù hợp với môi trường làm việc nào — và cách bạn vận hành trong đó.</p>
-
   <div class="intro-disclaimer">
     <strong>Đây là đánh giá về độ nhạy cảm trong chính trị văn phòng và môi trường làm việc — không phải đánh giá năng lực chuyên môn.</strong><br><br>
     Assessment này đo cách bạn đọc và phản ứng với động lực tổ chức, không đo bạn giỏi hay không giỏi trong công việc. Một chuyên gia xuất sắc có thể có Politics IQ thấp và vẫn rất thành công trong môi trường phù hợp. Mục tiêu là giúp bạn hiểu bản thân đang ở đâu — để chọn đúng sân chơi, không phải để đánh giá giá trị của bạn.
   </div>
-
-  <p class="intro-note">Không có câu trả lời đúng hay sai. Chọn điều <strong>thật sự mô tả bạn</strong> — không phải điều bạn nghĩ nên là. Assessment hoạt động tốt nhất khi bạn trả lời trong vòng 8 giây mỗi câu, không suy nghĩ quá nhiều.</p>
-
+  <p class="intro-note">Không có câu trả lời đúng hay sai. Chọn điều <strong>thật sự mô tả bạn</strong> — không phải điều bạn nghĩ nên là. Assessment hoạt động tốt nhất khi bạn trả lời trong vòng 8 giây mỗi câu.</p>
   <div class="intro-tags"><span class="tag">18 câu hỏi</span><span class="tag">Frequency-based</span><span class="tag">Trade-off</span><span class="tag">Third-person</span><span class="tag">~6 phút</span></div>
   <button class="btn-start" onclick="startQuiz()">Bắt đầu <span class="arrow">→</span></button>
 </div>
@@ -164,7 +161,7 @@ const Q=[
     context:null,
     options:[
       {l:"A",t:"Chia sẻ credit rộng rãi — nhấn mạnh đóng góp của từng người",s:{c:1,e:0,p:0}},
-      {l:"B",t:"Ghi lại những gì mình học được để áp dụng lần sau",s:{c:-1,e:2,p:0}},
+      {l:"B",t:"Ghi lại những gì mình học được để áp dụng lần sau",s:{c:1,e:2,p:0}},
       {l:"C",t:"Đảm bảo những người quan trọng biết mình đã contribute gì",s:{c:-1,e:-1,p:3}},
       {l:"D",t:"Phân tích xem success factor nào thật sự quan trọng",s:{c:0,e:2,p:1}}
     ]
@@ -174,7 +171,7 @@ const Q=[
     text:"Nhìn lại những project bạn thích nhất trong career, chúng có điểm gì chung?",
     context:null,
     options:[
-      {l:"A",t:"Tôi có toàn quyền quyết định về cách thực hiện",s:{c:-1,e:2,p:0}},
+      {l:"A",t:"Tôi có đủ thời gian và resource để đào sâu vào vấn đề trước khi đưa ra giải pháp",s:{c:2,e:2,p:0}},
       {l:"B",t:"Kết quả đo được rõ ràng và tôi biết mình đang làm tốt không",s:{c:2,e:0,p:0}},
       {l:"C",t:"Tôi phải làm việc với nhiều người và align nhiều phía",s:{c:1,e:0,p:2}},
       {l:"D",t:"Scope và problem chưa được define — tôi là người định hình nó",s:{c:-2,e:1,p:2}}
@@ -217,7 +214,7 @@ const Q=[
   {
     group:"B · Góc nhìn người khác",dim:"Identity",
     text:"Điểm yếu của bạn là gì?",
-    context:"Chọn câu mô tả đúng nhất điểm yếu thật sự của bạn trong công việc — không phải câu nghe 'professional' nhất.",
+    context:"Chọn câu mô tả đúng nhất điểm yếu thật sự của bạn — không phải câu nghe professional nhất.",
     options:[
       {l:"A",t:"Đôi khi quá perfectionist, khó compromise về chất lượng",s:{c:-1,e:2,p:-1}},
       {l:"B",t:"Có thể impatient khi phải qua quá nhiều approval layers",s:{c:-2,e:0,p:-1}},
@@ -241,7 +238,7 @@ const Q=[
     text:"Nếu một junior hỏi 'anh/chị thành công nhờ điều gì?' — câu trả lời thật lòng nhất của bạn?",
     context:null,
     options:[
-      {l:"A",t:"Tôi làm tốt hơn người khác trong lĩnh vực chuyên môn của mình",s:{c:-1,e:2,p:0}},
+      {l:"A",t:"Tôi làm tốt hơn người khác trong lĩnh vực chuyên môn của mình",s:{c:1,e:2,p:0}},
       {l:"B",t:"Tôi biết cách làm việc với người có quyền quyết định",s:{c:-1,e:0,p:3}},
       {l:"C",t:"Tôi chịu khó và đáng tin — ai giao gì tôi cũng làm xong",s:{c:2,e:0,p:0}},
       {l:"D",t:"Tôi giỏi nhìn ra cơ hội mà người khác chưa thấy",s:{c:0,e:1,p:2}}
@@ -263,7 +260,7 @@ const Q=[
     text:"Người biết bạn rõ nhất sẽ nói bạn thật ra thích gì hơn trong công việc?",
     context:null,
     options:[
-      {l:"A",t:"Được làm chủ một domain và trở thành người giỏi nhất về nó",s:{c:-1,e:2,p:0}},
+      {l:"A",t:"Được làm chủ một domain và trở thành người giỏi nhất về nó",s:{c:1,e:2,p:0}},
       {l:"B",t:"Liên tục thay đổi context — không project nào giống project nào",s:{c:-2,e:1,p:0}},
       {l:"C",t:"Có ảnh hưởng rõ ràng lên kết quả business",s:{c:2,e:0,p:1}},
       {l:"D",t:"Được làm việc với nhiều người thú vị và build relationships",s:{c:0,e:-1,p:2}}
@@ -286,21 +283,21 @@ const Q=[
     text:"Bạn đóng góp nhiều nhất cho một project thành công, nhưng credit được chia đều. Bạn làm gì?",
     context:null,
     options:[
-      {l:"A",t:"Không làm gì — đóng góp thật sự rồi sẽ được nhận ra",s:{c:0,e:0,p:-2}},
+      {l:"A",t:"Không làm gì — đóng góp thật sự rồi sẽ được nhận ra",s:{c:1,e:0,p:-2}},
       {l:"B",t:"Đảm bảo những người quan trọng biết contribution của mình một cách khéo léo",s:{c:-1,e:0,p:3}},
       {l:"C",t:"Nói thẳng với team rằng mình muốn được acknowledge rõ hơn",s:{c:-1,e:1,p:-1}},
       {l:"D",t:"Accept lần này nhưng negotiate rõ về credit từ đầu ở lần sau",s:{c:1,e:0,p:1}}
     ]
   },
   {
-    group:"C · Forced trade-off",dim:"Agency Win",
-    text:"Client tiềm năng tiếp cận bạn. Budget thấp hơn 40% so với mức bạn muốn làm. Brand họ thú vị. Bạn làm gì?",
-    context:"Đây là scenario đặc thù của agency side — cách bạn phản ứng reveal rất nhiều về priority thật sự.",
+    group:"C · Forced trade-off",dim:"Agency vs Client depth",
+    text:"Hai lựa chọn career: (A) Làm agency — tiếp xúc 8-10 brands mỗi năm, mỗi brand vài tháng. (B) Làm in-house — chỉ một brand nhưng bạn hiểu nó sâu hơn bất kỳ ai.",
+    context:"Chọn cái bạn sẽ thật sự chọn — không phải cái nghe có vẻ đúng hơn.",
     options:[
-      {l:"A",t:"Từ chối — không đủ resource để làm đúng, nhận sẽ ảnh hưởng chất lượng",s:{c:-2,e:2,p:-1}},
-      {l:"B",t:"Nhận và deliver tốt nhất có thể trong budget đó",s:{c:1,e:0,p:0}},
-      {l:"C",t:"Nhận, deliver okay, nhưng chủ yếu để build relationship dài hạn với brand",s:{c:-1,e:-1,p:3}},
-      {l:"D",t:"Đàm phán để tăng budget hoặc cut scope rõ ràng trước khi nhận",s:{c:-1,e:1,p:2}}
+      {l:"A",t:"Agency — sự đa dạng và liên tục học cái mới là điều tôi cần",s:{c:-2,e:0,p:0}},
+      {l:"B",t:"In-house — tôi muốn đào sâu và thật sự làm chủ một domain",s:{c:2,e:2,p:0}},
+      {l:"C",t:"Agency — nhưng tôi sẽ chọn client dài hạn để có depth",s:{c:-1,e:1,p:1}},
+      {l:"D",t:"In-house — nhưng ở công ty đủ lớn để tôi vẫn được tiếp xúc nhiều context",s:{c:1,e:1,p:1}}
     ]
   },
   {
@@ -331,7 +328,7 @@ const Q=[
     context:null,
     options:[
       {l:"A",t:"Tôi làm ra thứ gì đó tôi thật sự tự hào, dù không nhiều người biết",s:{c:-2,e:2,p:-1}},
-      {l:"B",t:"Tôi là người giỏi nhất về một lĩnh vực cụ thể",s:{c:-1,e:3,p:0}},
+      {l:"B",t:"Tôi là người giỏi nhất về một lĩnh vực cụ thể",s:{c:1,e:3,p:0}},
       {l:"C",t:"Tôi có ảnh hưởng rõ ràng lên tổ chức hoặc business",s:{c:2,e:0,p:1}},
       {l:"D",t:"Tôi ở đúng vị trí để những người quan trọng biết tôi làm được gì",s:{c:-1,e:-1,p:3}}
     ]
@@ -362,7 +359,7 @@ const archetypes={
   domainExpert:{
     name:"The Domain Expert",tag:"Client-side · Expert",color:"#1D9E75",colorLight:"rgba(29,158,117,0.08)",
     desc:"Bạn không thỏa mãn với bề mặt. Muốn hiểu tại sao một thị trường vận hành theo cách nó vận hành, không chỉ làm campaign cho thị trường đó. Với bạn, 3 năm làm một industry không phải bị 'stuck' — đó là đang build moat.",
-    personality:"Bạn đọc nhiều, hỏi nhiều câu hỏi về nguyên nhân gốc rễ, và khó chịu khi phải 'move on' sang project tiếp theo trước khi hiểu đủ sâu. Điểm mù lớn nhất: bị bypass bởi người kém expertise hơn nhưng biết chơi tổ chức tốt hơn.",
+    personality:"Bạn đọc nhiều, hỏi nhiều câu hỏi về nguyên nhân gốc rễ, và khó chịu khi phải 'move on' sang project tiếp theo trước khi hiểu đủ sâu. Sự ổn định của client-side không phải là compromise với bạn — đó là điều kiện để làm việc tốt nhất. Điểm mù lớn nhất: bị bypass bởi người kém expertise hơn nhưng biết chơi tổ chức tốt hơn.",
     strengths:["Deep domain focus tạo compound advantage theo thời gian","Long-term thinking, không bị distract bởi short-term wins","Genuine ownership và accountability với kết quả","Thường là người biết nhất trong room về domain của mình"],
     blindspots:["Internal politics ở client-side phức tạp hơn agency nhiều","Có thể bị expertise trap — quá focus vào being right thay vì being effective","Risk bị overlook trong promotion vì thiếu political awareness"],
     recommendations:[
@@ -413,7 +410,7 @@ const archetypes={
     rolemodels:[
       {name:"Indra Nooyi",title:"Former CEO, PepsiCo",why:"Từ McKinsey consultant thành CEO bằng cách build relevance qua từng thế hệ leadership, mở rộng scope mỗi bước có chủ đích.",initials:"IN"},
       {name:"Tim Cook",title:"CEO, Apple Inc.",why:"Không cố thay thế Jobs — expand Apple theo cách chỉ ông có thể làm, qua operations mastery và organizational navigation.",initials:"TC"},
-      {name:"Safra Catz",title:"CEO, Oracle",why:"Từ investment banker trở thành Co-CEO Oracle. Hình mẫu của việc build influence từ financial expertise, sau đó expand thành organizational control.",initials:"SC"}
+      {name:"Safra Catz",title:"CEO, Oracle",why:"Từ investment banker trở thành Co-CEO Oracle. Build influence từ financial expertise, sau đó expand thành organizational control.",initials:"SC"}
     ]
   },
   generalist:{
@@ -494,38 +491,33 @@ function computeResult(){
   const po=Math.round(Math.max(0,Math.min(100,50+(p/max*50))));
   const bu=100-ex;
 
-  const isAg=ag>=50;
-  const isEx=ex>=58;
-  const isHP=po>=58;
+  // Per-archetype thresholds — Domain Expert uses lower expert threshold
+  // to account for c+ & e+ combinations being less common
+  const isAg   = ag >= 50;
+  const isEx   = ex >= 58;   // Craftsman / Operator threshold
+  const isExDE = ex >= 53;   // Domain Expert — lower threshold
+  const isHP   = po >= 58;
 
-  // Generalist only when ALL axes are in the middle band
   const allMiddle=ag>=38&&ag<=62&&ex>=38&&ex<=62&&po>=38&&po<=62;
 
   let key;
   if(allMiddle){
     key='generalist';
   } else {
-    // Find dominant axis first
-    const agencyDiff=Math.abs(ag-50);
-    const expertDiff=Math.abs(ex-50);
-    const politicsDiff=Math.abs(po-50);
+    const agDiff=Math.abs(ag-50);
+    const exDiff=Math.abs(ex-50);
+    const poDiff=Math.abs(po-50);
 
-    if(isAg&&isEx) key='craftsman';
-    else if(!isAg&&isEx&&!isHP) key='domainExpert';
-    else if(isAg&&isHP&&!isEx) key='strategicOperator';
-    else if(!isAg&&isHP&&!isEx) key='corporateNavigator';
-    else if(isEx) key=ag>=50?'craftsman':'domainExpert';
-    else if(isHP){
-      // Politics is dominant — determine agency vs client by agency score
-      key=ag>=50?'strategicOperator':'corporateNavigator';
-    } else if(isAg){
-      // Agency is dominant but neither expert nor politics peak
-      // Route to Strategic Operator if politics is the second highest, else Craftsman
-      key=politicsDiff>=expertDiff?'strategicOperator':'craftsman';
-    } else {
-      // Client leaning — route by second highest axis
-      key=politicsDiff>=expertDiff?'corporateNavigator':'domainExpert';
-    }
+    if(isAg && isEx && !isHP)          key='craftsman';
+    else if(isAg && isEx && isHP)      key='craftsman'; // Expert overrides politics when agency
+    else if(!isAg && isExDE && !isHP)  key='domainExpert';   // ← Lower threshold for DE
+    else if(isAg && isHP && !isEx)     key='strategicOperator';
+    else if(!isAg && isHP && !isExDE)  key='corporateNavigator';
+    else if(!isAg && isHP && isExDE)   key='domainExpert';   // DE wins over CN when expert also high
+    else if(isEx)  key = isAg ? 'craftsman' : 'domainExpert';
+    else if(isHP)  key = isAg ? 'strategicOperator' : 'corporateNavigator';
+    else if(isAg)  key = poDiff >= exDiff ? 'strategicOperator' : 'craftsman';
+    else           key = poDiff >= exDiff ? 'corporateNavigator' : 'domainExpert';
   }
 
   // Consistency check
@@ -563,18 +555,13 @@ function showResult(arch,scores,highVariance){
   document.getElementById('dec-num').textContent='✦';
   const rs=document.getElementById('result');
   rs.classList.add('active');
-
   const sr=[
     {label:'Agency orientation',value:scores.agency,color:'#7F77DD'},
     {label:'Expert mindset',value:scores.expert,color:'#1D9E75'},
     {label:'Politics IQ',value:scores.politics,color:'#C9761A'},
     {label:'Business orientation',value:scores.business,color:'#185FA5'}
   ];
-
-  const cn=highVariance
-    ?'<div class="consistency-note">⚠ Một số câu trả lời của bạn có variance cao trong cùng dimension — bạn có thể đang ở giai đoạn chuyển tiếp hoặc có profile phức tạp. Kết quả dưới đây là xu hướng chính.</div>'
-    :'';
-
+  const cn=highVariance?'<div class="consistency-note">⚠ Một số câu trả lời của bạn có variance cao trong cùng dimension — bạn có thể đang ở giai đoạn chuyển tiếp hoặc có profile phức tạp. Kết quả dưới đây là xu hướng chính.</div>':'';
   rs.innerHTML=`
     <div class="result-masthead fade-in">
       <div class="result-eyebrow">Kết quả · ${sessionId}</div>
@@ -622,12 +609,8 @@ function showResult(arch,scores,highVariance){
     <div class="result-footer fade-in">
       <span class="saved-badge">✓ Đã lưu vào Google Sheets</span>
       <button class="btn-action secondary" onclick="resetQuiz()">Làm lại từ đầu</button>
-    </div>
-  `;
-
-  setTimeout(()=>{
-    document.querySelectorAll('.score-bar[data-target]').forEach(bar=>{bar.style.width=bar.dataset.target+'%'});
-  },200);
+    </div>`;
+  setTimeout(()=>{document.querySelectorAll('.score-bar[data-target]').forEach(bar=>{bar.style.width=bar.dataset.target+'%'})},200);
 }
 
 function resetQuiz(){
