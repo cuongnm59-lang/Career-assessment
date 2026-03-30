@@ -21,7 +21,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .intro-title em{color:var(--gold);font-style:italic}
 .intro-rule{width:48px;height:2px;background:var(--gold);margin:24px 0}
 .intro-body{font-size:15px;line-height:1.8;color:var(--muted);max-width:560px;margin-bottom:16px}
-.intro-note{font-size:12px;line-height:1.7;color:var(--muted);max-width:560px;margin-bottom:32px;padding:12px 16px;border-left:2px solid var(--gold-light);font-style:italic}
+.intro-disclaimer{font-size:13px;line-height:1.8;color:var(--ink);max-width:560px;margin-bottom:16px;padding:16px 20px;border:1px solid var(--rule);background:var(--cream)}
+.intro-disclaimer strong{font-weight:500;color:var(--ink)}
+.intro-note{font-size:12px;line-height:1.7;color:var(--muted);max-width:560px;margin-bottom:32px;padding:10px 16px;border-left:2px solid var(--gold-light);font-style:italic}
 .intro-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
 .tag{font-family:var(--mono);font-size:10px;padding:4px 10px;border:1px solid var(--rule);color:var(--muted);letter-spacing:.05em}
 .btn-start{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border:none;cursor:pointer;transition:all .2s}
@@ -101,8 +103,15 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <div class="intro-eyebrow">Behavioral Assessment · Office Politics · Career Fit</div>
   <h1 class="intro-title">Agency<br>hay <em>Client-side?</em></h1>
   <div class="intro-rule"></div>
-  <p class="intro-body">18 câu hỏi về hành vi thực tế, tần suất, và trade-off — để xác định bạn thật sự phù hợp với môi trường nào.</p>
-  <p class="intro-note">Không có câu trả lời đúng hay sai. Chọn điều <strong>thật sự mô tả bạn</strong> — không phải điều bạn nghĩ nên là. Assessment hoạt động tốt nhất khi bạn trả lời trong vòng 8 giây mỗi câu.</p>
+  <p class="intro-body">18 câu hỏi để xác định bạn phù hợp với môi trường làm việc nào — và cách bạn vận hành trong đó.</p>
+
+  <div class="intro-disclaimer">
+    <strong>Đây là đánh giá về độ nhạy cảm trong chính trị văn phòng và môi trường làm việc — không phải đánh giá năng lực chuyên môn.</strong><br><br>
+    Assessment này đo cách bạn đọc và phản ứng với động lực tổ chức, không đo bạn giỏi hay không giỏi trong công việc. Một chuyên gia xuất sắc có thể có Politics IQ thấp và vẫn rất thành công trong môi trường phù hợp. Mục tiêu là giúp bạn hiểu bản thân đang ở đâu — để chọn đúng sân chơi, không phải để đánh giá giá trị của bạn.
+  </div>
+
+  <p class="intro-note">Không có câu trả lời đúng hay sai. Chọn điều <strong>thật sự mô tả bạn</strong> — không phải điều bạn nghĩ nên là. Assessment hoạt động tốt nhất khi bạn trả lời trong vòng 8 giây mỗi câu, không suy nghĩ quá nhiều.</p>
+
   <div class="intro-tags"><span class="tag">18 câu hỏi</span><span class="tag">Frequency-based</span><span class="tag">Trade-off</span><span class="tag">Third-person</span><span class="tag">~6 phút</span></div>
   <button class="btn-start" onclick="startQuiz()">Bắt đầu <span class="arrow">→</span></button>
 </div>
@@ -125,29 +134,510 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <div class="decorative-num" id="dec-num">01</div>
 
 <script>
-const Q=[{group:"A · Tần suất hành vi",dim:"Power Dynamics",text:"Nhìn lại 12 tháng qua, bạn đã làm điều nào dưới đây thường xuyên nhất?",context:null,options:[{l:"A",t:"Chủ động xin feedback từ cấp trên về cách mình đang làm việc",s:{c:1,e:0,p:0}},{l:"B",t:"Tìm cách làm thứ gì đó tốt hơn cách được yêu cầu, dù không ai hỏi",s:{c:-1,e:2,p:0}},{l:"C",t:"Để ý ai đang được sếp chú ý và điều chỉnh cách present mình theo",s:{c:0,e:-1,p:3}},{l:"D",t:"Tập trung hoàn thành đúng những gì được giao, không thêm không bớt",s:{c:2,e:0,p:-1}}]},{group:"A · Tần suất hành vi",dim:"Collaboration",text:"Khi bắt đầu một project mới, điều đầu tiên bạn thường làm là gì?",context:null,options:[{l:"A",t:"Tìm hiểu ai là người thật sự có quyền quyết định, dù không phải người assign",s:{c:0,e:-1,p:3}},{l:"B",t:"Đào sâu vào problem — đọc, research, tìm benchmark",s:{c:-1,e:3,p:0}},{l:"C",t:"Clarify mục tiêu và KPI với người giao việc",s:{c:2,e:0,p:0}},{l:"D",t:"Map ra các stakeholder và bắt đầu align từng người",s:{c:1,e:0,p:2}}]},{group:"A · Tần suất hành vi",dim:"Ownership",text:"Khi một dự án thành công, bạn thường làm gì đầu tiên?",context:null,options:[{l:"A",t:"Chia sẻ credit rộng rãi — nhấn mạnh đóng góp của từng người",s:{c:1,e:0,p:0}},{l:"B",t:"Ghi lại những gì mình học được để áp dụng lần sau",s:{c:-1,e:2,p:0}},{l:"C",t:"Đảm bảo những người quan trọng biết mình đã contribute gì",s:{c:0,e:-1,p:3}},{l:"D",t:"Phân tích xem success factor nào thật sự quan trọng",s:{c:0,e:2,p:1}}]},{group:"A · Tần suất hành vi",dim:"Ambiguity",text:"Nhìn lại những project bạn thích nhất trong career, chúng có điểm gì chung?",context:null,options:[{l:"A",t:"Tôi có toàn quyền quyết định về cách thực hiện",s:{c:-1,e:2,p:0}},{l:"B",t:"Kết quả đo được rõ ràng và tôi biết mình đang làm tốt không",s:{c:2,e:0,p:0}},{l:"C",t:"Tôi phải làm việc với nhiều người và align nhiều phía",s:{c:1,e:0,p:2}},{l:"D",t:"Scope và problem chưa được define — tôi là người định hình nó",s:{c:-2,e:1,p:2}}]},{group:"A · Tần suất hành vi",dim:"Identity",text:"Khi giải thích công việc của mình với người ngoài ngành, bạn thường bắt đầu bằng điều gì?",context:null,options:[{l:"A",t:"Lĩnh vực hoặc ngành bạn đang làm",s:{c:1,e:0,p:0}},{l:"B",t:"Kỹ năng hoặc chuyên môn cụ thể bạn có",s:{c:-1,e:3,p:0}},{l:"C",t:"Vấn đề bạn giải quyết cho tổ chức",s:{c:1,e:0,p:1}},{l:"D",t:"Những người bạn làm việc cùng hoặc network của bạn",s:{c:0,e:-1,p:2}}]},{group:"A · Tần suất hành vi",dim:"Politics Navigation",text:"Khi bạn cần thứ gì đó từ người không trực tiếp quản lý mình, bạn thường làm gì?",context:null,options:[{l:"A",t:"Giải thích rõ tại sao điều đó quan trọng với tổ chức và hỏi thẳng",s:{c:1,e:1,p:0}},{l:"B",t:"Tìm điểm chung giữa nhu cầu của mình và lợi ích của họ trước khi hỏi",s:{c:0,e:0,p:3}},{l:"C",t:"Nhờ người có authority chung yêu cầu thay mình",s:{c:1,e:0,p:1}},{l:"D",t:"Làm trước, thông báo sau nếu cần",s:{c:-1,e:1,p:0}}]},{group:"B · Góc nhìn người khác",dim:"Power Dynamics",text:"Những người từng làm việc với bạn thường mô tả bạn theo cách nào?",context:"Chọn cái gần với những gì bạn thật sự nghe được — không phải điều bạn muốn nghe.",options:[{l:"A",t:"Người luôn có ý kiến riêng, đôi khi cứng đầu nhưng thường đúng",s:{c:-1,e:2,p:-1}},{l:"B",t:"Người dễ làm việc cùng, biết cách tìm common ground",s:{c:1,e:0,p:1}},{l:"C",t:"Người biết cách navigate tổ chức và làm mọi thứ xảy ra",s:{c:0,e:-1,p:3}},{l:"D",t:"Người đáng tin cậy — giao việc gì xong việc đó",s:{c:2,e:0,p:0}}]},{group:"B · Góc nhìn người khác",dim:"Identity",text:"Nếu sếp cũ được hỏi 'điểm yếu của người đó là gì?' — câu trả lời nào gần thực tế nhất?",context:"Câu hỏi về điểm yếu thường reveal identity và priority thật sự.",options:[{l:"A",t:"Đôi khi quá perfectionist, khó compromise về chất lượng",s:{c:-1,e:2,p:-1}},{l:"B",t:"Có thể impatient khi phải qua quá nhiều approval layers",s:{c:-1,e:0,p:-2}},{l:"C",t:"Đôi khi focus quá nhiều vào big picture, ít chú ý đến execution detail",s:{c:0,e:0,p:2}},{l:"D",t:"Có thể mất hứng nhanh khi công việc không đủ thách thức",s:{c:-2,e:2,p:0}}]},{group:"B · Góc nhìn người khác",dim:"Collaboration",text:"Trong team, bạn thường được nhờ giải quyết loại vấn đề nào nhất?",context:null,options:[{l:"A",t:"'Mày giỏi phần này nhất, check giúp tao với'",s:{c:-1,e:3,p:0}},{l:"B",t:"'Cần ai đó nói chuyện với stakeholder khó, mày làm được không?'",s:{c:0,e:0,p:2}},{l:"C",t:"'Cần người nhìn toàn bộ picture và tìm ra vấn đề thật sự'",s:{c:0,e:1,p:1}},{l:"D",t:"'Mày biết ai có thể giúp chuyện này không?'",s:{c:0,e:-1,p:3}}]},{group:"B · Góc nhìn người khác",dim:"Ownership",text:"Nếu một junior hỏi 'anh/chị thành công nhờ điều gì?' — câu trả lời thật lòng nhất của bạn?",context:null,options:[{l:"A",t:"Tôi làm tốt hơn người khác trong lĩnh vực chuyên môn của mình",s:{c:-1,e:2,p:0}},{l:"B",t:"Tôi biết cách làm việc với người có quyền quyết định",s:{c:0,e:0,p:3}},{l:"C",t:"Tôi chịu khó và đáng tin — ai giao gì tôi cũng làm xong",s:{c:2,e:0,p:0}},{l:"D",t:"Tôi giỏi nhìn ra cơ hội mà người khác chưa thấy",s:{c:0,e:1,p:2}}]},{group:"B · Góc nhìn người khác",dim:"Politics Navigation",text:"Nếu phải mô tả cách bạn thật sự xử lý conflict ở công việc?",context:null,options:[{l:"A",t:"Tôi nói thẳng — uncomfortable nhưng clear",s:{c:0,e:1,p:-1}},{l:"B",t:"Tôi để nó tự giải quyết hoặc chờ thời điểm tốt hơn",s:{c:1,e:0,p:-2}},{l:"C",t:"Tôi tìm cách reframe vấn đề để không còn là conflict",s:{c:0,e:0,p:2}},{l:"D",t:"Tôi vận động người khác về phía mình trước khi confrontation",s:{c:0,e:0,p:3}}]},{group:"B · Góc nhìn người khác",dim:"Ambiguity",text:"Người biết bạn rõ nhất sẽ nói bạn thật ra thích gì hơn trong công việc?",context:null,options:[{l:"A",t:"Được làm chủ một domain và trở thành người giỏi nhất về nó",s:{c:-1,e:2,p:0}},{l:"B",t:"Liên tục thay đổi context — không project nào giống project nào",s:{c:-2,e:1,p:0}},{l:"C",t:"Có ảnh hưởng rõ ràng lên kết quả business",s:{c:2,e:0,p:1}},{l:"D",t:"Được làm việc với nhiều người thú vị và build relationships",s:{c:0,e:-1,p:2}}]},{group:"C · Forced trade-off",dim:"Quality vs Speed",text:"Bạn có 3 ngày để deliver. Làm đúng mất 4 ngày. Bạn sẽ làm gì thật sự?",context:"Không có đáp án nào professional hơn đáp án nào — chỉ có cái thật sự mô tả bạn.",options:[{l:"A",t:"Deliver đúng hạn với chất lượng thấp hơn — deadline là commitment",s:{c:2,e:-1,p:0}},{l:"B",t:"Deliver đúng hạn nhưng nói rõ đây chưa phải best work của mình",s:{c:1,e:1,p:0}},{l:"C",t:"Deliver muộn 1 ngày với chất lượng tốt — explain sau",s:{c:-2,e:2,p:-1}},{l:"D",t:"Negotiate lại deadline trước khi bắt đầu",s:{c:0,e:0,p:2}}]},{group:"C · Forced trade-off",dim:"Credit vs Harmony",text:"Bạn đóng góp nhiều nhất cho một project thành công, nhưng credit được chia đều. Bạn làm gì?",context:null,options:[{l:"A",t:"Không làm gì — đóng góp thật sự rồi sẽ được nhận ra",s:{c:0,e:0,p:-2}},{l:"B",t:"Đảm bảo những người quan trọng biết contribution của mình một cách khéo léo",s:{c:0,e:0,p:3}},{l:"C",t:"Nói thẳng với team rằng mình muốn được acknowledge rõ hơn",s:{c:-1,e:1,p:-1}},{l:"D",t:"Accept lần này nhưng negotiate rõ về credit từ đầu ở lần sau",s:{c:1,e:0,p:1}}]},{group:"C · Forced trade-off",dim:"Expertise vs Opportunity",text:"Hai offer: (A) Role chuyên sâu hơn trong lĩnh vực bạn đang giỏi, lương ngang. (B) Role rộng hơn, nhiều stakeholder hơn, lương cao hơn 20% nhưng phải học lại nhiều thứ.",context:"Chọn cái bạn sẽ thật sự nhận — không phải cái nghe có vẻ đúng hơn.",options:[{l:"A",t:"Offer A — đi sâu hơn vào thứ mình đang giỏi",s:{c:-1,e:3,p:0}},{l:"B",t:"Offer B — scope rộng hơn và impact lớn hơn",s:{c:1,e:0,p:1}},{l:"C",t:"Phụ thuộc vào công ty và người quản lý, không phải role",s:{c:2,e:0,p:0}},{l:"D",t:"Phụ thuộc vào xem Offer B có cho mình build network tốt hơn không",s:{c:0,e:0,p:2}}]},{group:"C · Forced trade-off",dim:"Autonomy vs Resources",text:"Bạn chọn môi trường nào thật sự?",context:"(A) Công ty nhỏ, ít resource, nhưng toàn quyền quyết định. (B) Công ty lớn, nhiều resource và support, nhưng mọi quyết định cần approval nhiều tầng.",options:[{l:"A",t:"Chọn A dứt khoát — autonomy quan trọng hơn resource",s:{c:-2,e:2,p:0}},{l:"B",t:"Chọn B dứt khoát — execution tốt cần resource",s:{c:2,e:-1,p:0}},{l:"C",t:"Chọn A nhưng sẽ dùng network để bù resource",s:{c:-1,e:1,p:2}},{l:"D",t:"Chọn B nhưng sẽ build autonomy dần trong hệ thống",s:{c:1,e:0,p:2}}]},{group:"C · Forced trade-off",dim:"Stability vs Visibility",text:"Bạn đang làm tốt ở vị trí hiện tại — stable, respected, nhưng không ai bên ngoài team biết đến bạn. Phản ứng tự nhiên nhất?",context:null,options:[{l:"A",t:"Thoải mái — làm tốt là đủ, visibility tự đến",s:{c:1,e:0,p:-2}},{l:"B",t:"Bắt đầu tìm cách để công việc được nhìn thấy nhiều hơn trong tổ chức",s:{c:0,e:0,p:2}},{l:"C",t:"Cảm thấy thiếu gì đó — tìm cách build external visibility ngoài công ty",s:{c:-1,e:1,p:1}},{l:"D",t:"Đánh giá lại xem vị trí này có còn phù hợp với career goal không",s:{c:-1,e:0,p:2}}]},{group:"C · Forced trade-off",dim:"Core Identity",text:"Nếu chỉ được biết đến về một thứ — điều thật nhất, không phải điều nghe hay nhất:",context:null,options:[{l:"A",t:"Tôi làm ra thứ gì đó tôi thật sự tự hào, dù không nhiều người biết",s:{c:-2,e:2,p:-1}},{l:"B",t:"Tôi là người giỏi nhất về một lĩnh vực cụ thể",s:{c:-1,e:3,p:0}},{l:"C",t:"Tôi có ảnh hưởng rõ ràng lên tổ chức hoặc business",s:{c:2,e:0,p:1}},{l:"D",t:"Tôi ở đúng vị trí để những người quan trọng biết tôi làm được gì",s:{c:0,e:-1,p:3}}]}];
+const Q=[
+  // ── GROUP A: FREQUENCY-BASED ──────────────────────────────────────
+  {
+    group:"A · Tần suất hành vi",dim:"Power Dynamics",
+    text:"Nhìn lại 12 tháng qua, bạn đã làm điều nào dưới đây thường xuyên nhất?",
+    context:null,
+    options:[
+      {l:"A",t:"Chủ động xin feedback từ cấp trên về cách mình đang làm việc",s:{c:1,e:0,p:0}},
+      {l:"B",t:"Tìm cách làm thứ gì đó tốt hơn cách được yêu cầu, dù không ai hỏi",s:{c:-1,e:2,p:0}},
+      {l:"C",t:"Để ý ai đang được sếp chú ý và điều chỉnh cách present mình theo",s:{c:-1,e:-1,p:3}},
+      {l:"D",t:"Tập trung hoàn thành đúng những gì được giao, không thêm không bớt",s:{c:2,e:0,p:-1}}
+    ]
+  },
+  {
+    group:"A · Tần suất hành vi",dim:"Collaboration",
+    text:"Khi bắt đầu một project mới, điều đầu tiên bạn thường làm là gì?",
+    context:null,
+    options:[
+      {l:"A",t:"Tìm hiểu ai là người thật sự có quyền quyết định, dù không phải người assign",s:{c:-1,e:-1,p:3}},
+      {l:"B",t:"Đào sâu vào problem — đọc, research, tìm benchmark",s:{c:-1,e:3,p:0}},
+      {l:"C",t:"Clarify mục tiêu và KPI với người giao việc",s:{c:2,e:0,p:0}},
+      {l:"D",t:"Map ra các stakeholder và bắt đầu align từng người",s:{c:1,e:0,p:2}}
+    ]
+  },
+  {
+    group:"A · Tần suất hành vi",dim:"Ownership",
+    text:"Khi một dự án thành công, bạn thường làm gì đầu tiên?",
+    context:null,
+    options:[
+      {l:"A",t:"Chia sẻ credit rộng rãi — nhấn mạnh đóng góp của từng người",s:{c:1,e:0,p:0}},
+      {l:"B",t:"Ghi lại những gì mình học được để áp dụng lần sau",s:{c:-1,e:2,p:0}},
+      {l:"C",t:"Đảm bảo những người quan trọng biết mình đã contribute gì",s:{c:-1,e:-1,p:3}},
+      {l:"D",t:"Phân tích xem success factor nào thật sự quan trọng",s:{c:0,e:2,p:1}}
+    ]
+  },
+  {
+    group:"A · Tần suất hành vi",dim:"Ambiguity",
+    text:"Nhìn lại những project bạn thích nhất trong career, chúng có điểm gì chung?",
+    context:null,
+    options:[
+      {l:"A",t:"Tôi có toàn quyền quyết định về cách thực hiện",s:{c:-1,e:2,p:0}},
+      {l:"B",t:"Kết quả đo được rõ ràng và tôi biết mình đang làm tốt không",s:{c:2,e:0,p:0}},
+      {l:"C",t:"Tôi phải làm việc với nhiều người và align nhiều phía",s:{c:1,e:0,p:2}},
+      {l:"D",t:"Scope và problem chưa được define — tôi là người định hình nó",s:{c:-2,e:1,p:2}}
+    ]
+  },
+  {
+    group:"A · Tần suất hành vi",dim:"Identity",
+    text:"Khi giải thích công việc của mình với người ngoài ngành, bạn thường bắt đầu bằng điều gì?",
+    context:null,
+    options:[
+      {l:"A",t:"Lĩnh vực hoặc ngành bạn đang làm",s:{c:1,e:0,p:0}},
+      {l:"B",t:"Kỹ năng hoặc chuyên môn cụ thể bạn có",s:{c:-1,e:3,p:0}},
+      {l:"C",t:"Vấn đề bạn giải quyết cho tổ chức",s:{c:1,e:0,p:1}},
+      {l:"D",t:"Những người bạn làm việc cùng hoặc network của bạn",s:{c:0,e:-1,p:2}}
+    ]
+  },
+  {
+    group:"A · Tần suất hành vi",dim:"Politics Navigation",
+    text:"Khi bạn cần thứ gì đó từ người không trực tiếp quản lý mình, bạn thường làm gì?",
+    context:null,
+    options:[
+      {l:"A",t:"Giải thích rõ tại sao điều đó quan trọng với tổ chức và hỏi thẳng",s:{c:1,e:1,p:0}},
+      {l:"B",t:"Tìm điểm chung giữa nhu cầu của mình và lợi ích của họ trước khi đề nghị",s:{c:-1,e:0,p:3}},
+      {l:"C",t:"Nhờ người có authority chung yêu cầu thay mình",s:{c:1,e:0,p:1}},
+      {l:"D",t:"Làm trước, thông báo sau nếu cần",s:{c:-1,e:1,p:0}}
+    ]
+  },
+  // ── GROUP B: THIRD-PERSON PROJECTION ────────────────────────────────
+  {
+    group:"B · Góc nhìn người khác",dim:"Power Dynamics",
+    text:"Những người từng làm việc với bạn thường mô tả bạn theo cách nào?",
+    context:"Chọn cái gần với những gì bạn thật sự nghe được — không phải điều bạn muốn nghe.",
+    options:[
+      {l:"A",t:"Người luôn có ý kiến riêng, đôi khi cứng đầu nhưng thường đúng",s:{c:-1,e:2,p:-1}},
+      {l:"B",t:"Người dễ làm việc cùng, biết cách tìm common ground",s:{c:1,e:0,p:1}},
+      {l:"C",t:"Người biết cách navigate tổ chức và làm mọi thứ xảy ra",s:{c:-1,e:-1,p:3}},
+      {l:"D",t:"Người đáng tin cậy — giao việc gì xong việc đó",s:{c:2,e:0,p:0}}
+    ]
+  },
+  {
+    group:"B · Góc nhìn người khác",dim:"Identity",
+    text:"Điểm yếu của bạn là gì?",
+    context:"Chọn câu mô tả đúng nhất điểm yếu thật sự của bạn trong công việc — không phải câu nghe 'professional' nhất.",
+    options:[
+      {l:"A",t:"Đôi khi quá perfectionist, khó compromise về chất lượng",s:{c:-1,e:2,p:-1}},
+      {l:"B",t:"Có thể impatient khi phải qua quá nhiều approval layers",s:{c:-2,e:0,p:-1}},
+      {l:"C",t:"Đôi khi focus quá nhiều vào big picture, ít chú ý đến execution detail",s:{c:0,e:-1,p:2}},
+      {l:"D",t:"Có thể mất hứng nhanh khi công việc không đủ thách thức",s:{c:-2,e:2,p:0}}
+    ]
+  },
+  {
+    group:"B · Góc nhìn người khác",dim:"Collaboration",
+    text:"Trong team, bạn thường được nhờ giải quyết loại vấn đề nào nhất?",
+    context:null,
+    options:[
+      {l:"A",t:"'Mày giỏi phần này nhất, check giúp tao với'",s:{c:-1,e:3,p:0}},
+      {l:"B",t:"'Cần ai đó nói chuyện với stakeholder khó, mày làm được không?'",s:{c:-1,e:0,p:2}},
+      {l:"C",t:"'Cần người nhìn toàn bộ picture và tìm ra vấn đề thật sự'",s:{c:0,e:1,p:1}},
+      {l:"D",t:"'Mày biết ai có thể giúp chuyện này không?'",s:{c:-1,e:-1,p:3}}
+    ]
+  },
+  {
+    group:"B · Góc nhìn người khác",dim:"Ownership",
+    text:"Nếu một junior hỏi 'anh/chị thành công nhờ điều gì?' — câu trả lời thật lòng nhất của bạn?",
+    context:null,
+    options:[
+      {l:"A",t:"Tôi làm tốt hơn người khác trong lĩnh vực chuyên môn của mình",s:{c:-1,e:2,p:0}},
+      {l:"B",t:"Tôi biết cách làm việc với người có quyền quyết định",s:{c:-1,e:0,p:3}},
+      {l:"C",t:"Tôi chịu khó và đáng tin — ai giao gì tôi cũng làm xong",s:{c:2,e:0,p:0}},
+      {l:"D",t:"Tôi giỏi nhìn ra cơ hội mà người khác chưa thấy",s:{c:0,e:1,p:2}}
+    ]
+  },
+  {
+    group:"B · Góc nhìn người khác",dim:"Politics Navigation",
+    text:"Nếu phải mô tả cách bạn thật sự xử lý conflict ở công việc?",
+    context:null,
+    options:[
+      {l:"A",t:"Tôi nói thẳng — uncomfortable nhưng clear",s:{c:0,e:1,p:-1}},
+      {l:"B",t:"Tôi để nó tự giải quyết hoặc chờ thời điểm tốt hơn",s:{c:1,e:0,p:-2}},
+      {l:"C",t:"Tôi tìm cách reframe vấn đề để không còn là conflict",s:{c:-1,e:0,p:2}},
+      {l:"D",t:"Tôi vận động người khác về phía mình trước khi confrontation",s:{c:-1,e:0,p:3}}
+    ]
+  },
+  {
+    group:"B · Góc nhìn người khác",dim:"Ambiguity",
+    text:"Người biết bạn rõ nhất sẽ nói bạn thật ra thích gì hơn trong công việc?",
+    context:null,
+    options:[
+      {l:"A",t:"Được làm chủ một domain và trở thành người giỏi nhất về nó",s:{c:-1,e:2,p:0}},
+      {l:"B",t:"Liên tục thay đổi context — không project nào giống project nào",s:{c:-2,e:1,p:0}},
+      {l:"C",t:"Có ảnh hưởng rõ ràng lên kết quả business",s:{c:2,e:0,p:1}},
+      {l:"D",t:"Được làm việc với nhiều người thú vị và build relationships",s:{c:0,e:-1,p:2}}
+    ]
+  },
+  // ── GROUP C: FORCED TRADE-OFF ────────────────────────────────────────
+  {
+    group:"C · Forced trade-off",dim:"Quality vs Speed",
+    text:"Bạn có 3 ngày để deliver. Làm đúng mất 4 ngày. Bạn sẽ làm gì thật sự?",
+    context:"Không có đáp án nào professional hơn đáp án nào — chỉ có cái thật sự mô tả bạn.",
+    options:[
+      {l:"A",t:"Deliver đúng hạn với chất lượng thấp hơn — deadline là commitment",s:{c:2,e:-1,p:0}},
+      {l:"B",t:"Deliver đúng hạn nhưng nói rõ đây chưa phải best work của mình",s:{c:1,e:1,p:0}},
+      {l:"C",t:"Deliver muộn 1 ngày với chất lượng tốt — explain sau",s:{c:-2,e:2,p:-1}},
+      {l:"D",t:"Negotiate lại deadline trước khi bắt đầu",s:{c:-1,e:0,p:2}}
+    ]
+  },
+  {
+    group:"C · Forced trade-off",dim:"Credit vs Harmony",
+    text:"Bạn đóng góp nhiều nhất cho một project thành công, nhưng credit được chia đều. Bạn làm gì?",
+    context:null,
+    options:[
+      {l:"A",t:"Không làm gì — đóng góp thật sự rồi sẽ được nhận ra",s:{c:0,e:0,p:-2}},
+      {l:"B",t:"Đảm bảo những người quan trọng biết contribution của mình một cách khéo léo",s:{c:-1,e:0,p:3}},
+      {l:"C",t:"Nói thẳng với team rằng mình muốn được acknowledge rõ hơn",s:{c:-1,e:1,p:-1}},
+      {l:"D",t:"Accept lần này nhưng negotiate rõ về credit từ đầu ở lần sau",s:{c:1,e:0,p:1}}
+    ]
+  },
+  {
+    group:"C · Forced trade-off",dim:"Agency Win",
+    text:"Client tiềm năng tiếp cận bạn. Budget thấp hơn 40% so với mức bạn muốn làm. Brand họ thú vị. Bạn làm gì?",
+    context:"Đây là scenario đặc thù của agency side — cách bạn phản ứng reveal rất nhiều về priority thật sự.",
+    options:[
+      {l:"A",t:"Từ chối — không đủ resource để làm đúng, nhận sẽ ảnh hưởng chất lượng",s:{c:-2,e:2,p:-1}},
+      {l:"B",t:"Nhận và deliver tốt nhất có thể trong budget đó",s:{c:1,e:0,p:0}},
+      {l:"C",t:"Nhận, deliver okay, nhưng chủ yếu để build relationship dài hạn với brand",s:{c:-1,e:-1,p:3}},
+      {l:"D",t:"Đàm phán để tăng budget hoặc cut scope rõ ràng trước khi nhận",s:{c:-1,e:1,p:2}}
+    ]
+  },
+  {
+    group:"C · Forced trade-off",dim:"Autonomy vs Resources",
+    text:"Bạn chọn môi trường nào thật sự?",
+    context:"(A) Công ty nhỏ, ít resource, nhưng toàn quyền quyết định. (B) Công ty lớn, nhiều resource và support, nhưng mọi quyết định cần approval nhiều tầng.",
+    options:[
+      {l:"A",t:"Chọn A dứt khoát — autonomy quan trọng hơn resource",s:{c:-2,e:2,p:0}},
+      {l:"B",t:"Chọn B dứt khoát — execution tốt cần resource",s:{c:2,e:-1,p:0}},
+      {l:"C",t:"Chọn A nhưng sẽ dùng network để bù resource",s:{c:-2,e:1,p:2}},
+      {l:"D",t:"Chọn B nhưng sẽ build autonomy dần trong hệ thống",s:{c:1,e:0,p:2}}
+    ]
+  },
+  {
+    group:"C · Forced trade-off",dim:"Stability vs Visibility",
+    text:"Bạn đang làm tốt ở vị trí hiện tại — stable, respected, nhưng không ai bên ngoài team biết đến bạn. Phản ứng tự nhiên nhất?",
+    context:null,
+    options:[
+      {l:"A",t:"Thoải mái — làm tốt là đủ, visibility tự đến",s:{c:1,e:0,p:-2}},
+      {l:"B",t:"Bắt đầu tìm cách để công việc được nhìn thấy nhiều hơn trong tổ chức",s:{c:-1,e:0,p:2}},
+      {l:"C",t:"Cảm thấy thiếu gì đó — tìm cách build external visibility ngoài công ty",s:{c:-2,e:1,p:1}},
+      {l:"D",t:"Đánh giá lại xem vị trí này có còn phù hợp với career goal không",s:{c:-1,e:0,p:2}}
+    ]
+  },
+  {
+    group:"C · Forced trade-off",dim:"Core Identity",
+    text:"Nếu chỉ được biết đến về một thứ — điều thật nhất, không phải điều nghe hay nhất:",
+    context:null,
+    options:[
+      {l:"A",t:"Tôi làm ra thứ gì đó tôi thật sự tự hào, dù không nhiều người biết",s:{c:-2,e:2,p:-1}},
+      {l:"B",t:"Tôi là người giỏi nhất về một lĩnh vực cụ thể",s:{c:-1,e:3,p:0}},
+      {l:"C",t:"Tôi có ảnh hưởng rõ ràng lên tổ chức hoặc business",s:{c:2,e:0,p:1}},
+      {l:"D",t:"Tôi ở đúng vị trí để những người quan trọng biết tôi làm được gì",s:{c:-1,e:-1,p:3}}
+    ]
+  }
+];
 
-const archetypes={craftsman:{name:"The Craftsman",tag:"Agency · Expert",color:"#7F77DD",colorLight:"rgba(127,119,221,0.08)",desc:"Bạn định nghĩa bản thân qua chất lượng công việc, không qua chức danh hay công ty. Tiêu chuẩn nội tâm của bạn đôi khi cao hơn cả tổ chức đang trả lương. Agency phù hợp vì bạn cần sự đa dạng của challenge liên tục.",personality:"Khi bị yêu cầu làm việc dưới mức bạn cho là đủ tốt, phản ứng đầu tiên là khó chịu thật sự — không phải chiến thuật. Bạn thường là người trong team mà mọi người nhờ khi cần làm đúng, nhưng không phải người được nhờ khi cần 'làm nhanh và okay thôi.' Điểm mù lớn nhất: tin rằng kết quả tốt sẽ tự nói lên.",strengths:["Deep expertise và technical mastery","Creative ownership mạnh mẽ — công việc là biểu đạt bản thân","Output quality cao và consistent","Không sell những gì bản thân không tin vào"],blindspots:["Frustrate khi phải 'sell' nhiều hơn 'làm'","Underestimate tầm quan trọng của visibility","Bị exploit bởi người dùng craft của bạn mà không give credit"],recommendations:[{title:"Build a craft-to-business bridge",text:"Học cách translate chất lượng craft thành ngôn ngữ business metrics. Không phải để compromise — mà để bảo vệ công việc của mình."},{title:"Tìm người champion cho bạn",text:"Agency phù hợp nhất khi bạn có một account director hoặc ECD hiểu và bán được vision của bạn. Invest vào mối quan hệ đó."},{title:"Xây dựng external reputation",text:"Portfolio, awards, speaking — reputation bên ngoài là leverage tốt nhất để chọn project và client, không bị chọn."},{title:"Cân nhắc independent consulting",text:"Nếu muốn minimize politics tối đa, independent consulting cho phép bạn chọn context làm việc tốt hơn."}],adjustments:["Học một pitch framework cơ bản","Tham gia một business review mỗi quý","Network với account side, không chỉ creative side","Track impact của work bằng số liệu cụ thể"],rolemodels:[{name:"David Droga",title:"Founder Droga5 → Accenture Song",why:"Từ chối brief mà không tin vào, kể cả client lớn. Chứng minh craft có thể build business lớn mà không compromise.",initials:"DD"},{name:"Virgil Abloh",title:"Designer, Creative Director LV Menswear",why:"Giữ craft identity trong suốt quá trình scale từ graphic designer đến luxury fashion director.",initials:"VA"},{name:"Dieter Rams",title:"Industrial Designer, Braun",why:"10 nguyên tắc thiết kế vẫn được dạy sau 50 năm. Đặt craft lên trên trend và áp lực thị trường.",initials:"DR"}]},domainExpert:{name:"The Domain Expert",tag:"Client-side · Expert",color:"#1D9E75",colorLight:"rgba(29,158,117,0.08)",desc:"Bạn không thỏa mãn với bề mặt. Muốn hiểu tại sao một thị trường vận hành theo cách nó vận hành, không chỉ làm campaign cho thị trường đó. Với bạn, 3 năm làm một industry không phải bị 'stuck' — đó là đang build moat.",personality:"Bạn đọc nhiều, hỏi nhiều câu hỏi về nguyên nhân gốc rễ, và khó chịu khi phải 'move on' sang project tiếp theo trước khi hiểu đủ sâu project hiện tại. Điểm mù lớn nhất: bị bypass bởi người kém expertise hơn nhưng biết chơi tổ chức tốt hơn.",strengths:["Deep domain focus tạo compound advantage theo thời gian","Long-term thinking, không bị distract bởi short-term wins","Genuine ownership và accountability với kết quả","Thường là người biết nhất trong room về domain của mình"],blindspots:["Internal politics ở client-side phức tạp hơn agency nhiều","Có thể bị expertise trap — quá focus vào being right thay vì being effective","Risk bị overlook trong promotion vì thiếu political awareness"],recommendations:[{title:"Build political intelligence song song với expertise",text:"Client-side không thưởng expertise thuần túy — nó thưởng cho expertise được đóng gói trong influence."},{title:"Tìm một organizational sponsor",text:"Ai đó senior sẵn sàng champion cho bạn trong các cuộc họp bạn không được mời. Đây là asset quan trọng nhất ở client-side."},{title:"Develop executive communication",text:"Học cách present insights theo ngôn ngữ của người ra quyết định, không chỉ ngôn ngữ technical."},{title:"Think about career capital defensibility",text:"Domain expertise là moat tốt khi domain không bị disrupt. Ensure bạn cũng build transferable skills."}],adjustments:["Attend một leadership hoặc executive program","Volunteer cho cross-functional projects","Build relationship với CFO/CMO side","Viết memos và proposals để tạo visibility nội bộ"],rolemodels:[{name:"Reed Hastings",title:"Co-founder & former CEO, Netflix",why:"Domain expert từ góc nhìn bên ngoài, biến hiểu biết sâu về consumer psychology thành tổ chức định nghĩa lại cả ngành.",initials:"RH"},{name:"Sheryl Sandberg",title:"COO Facebook (Meta)",why:"Expert trong operations và growth, translate expertise thành organizational influence ở quy mô tỷ đô.",initials:"SS"},{name:"Bob Iger",title:"CEO, The Walt Disney Company",why:"Dành hàng thập kỷ học từng layer của entertainment. Acquisition Pixar, Marvel, Star Wars là kết quả của deep expertise, không phải may mắn.",initials:"BI"}]},strategicOperator:{name:"The Strategic Operator",tag:"Agency · Political",color:"#C9761A",colorLight:"rgba(201,118,26,0.08)",desc:"Bạn đọc được động lực của con người rất nhanh — ai thật sự có quyền quyết định, ai đang insecure về gì, ai cần được feel heard trước khi họ nghe. Agency phù hợp vì bạn thích game của việc win business và build relationships.",personality:"Bạn enjoy việc pitching không phải vì ego, mà vì thật sự thấy hứng thú với quá trình thuyết phục. Điểm mù lớn nhất: khi political capital được build mà không có delivery record song song, nó tiêu nhanh hơn tích lũy.",strengths:["Relationship-first mindset tạo long-term client loyalty","Biết cách manage up và sideways trong tổ chức","Strong at framing, pitching và selling ideas","Thăng tiến nhanh trong agency environment"],blindspots:["Đôi khi prioritize positioning hơn actual output quality","Có thể bị label là too political nếu thiếu substance","Team có thể cảm thấy bị dùng như phương tiện"],recommendations:[{title:"Pair strategic skill với creative credibility",text:"Operator mạnh nhất vừa biết navigate vừa có substantive opinion về craft. Đừng để bị label là 'just a suit.'"},{title:"Build a reputation for follow-through",text:"Political capital bị mất nhanh nhất khi over-promise và under-deliver. Reputation cho accountability là moat lâu dài."},{title:"Invest vào team genuinely",text:"Build culture nơi creative talent muốn làm việc với bạn — đó là competitive advantage thật, không phải chiến thuật."},{title:"Consider founding your own agency",text:"Agency environment give bạn nhiều nhất khi bạn có equity và autonomy. Nếu có vision, con đường founder là natural next step."}],adjustments:["Spend 1 ngày mỗi tháng với creative/strategy team","Institute regular feedback loops về leadership style","Track win rate và revenue metrics closely","Đọc về craft của ngành bạn serve mỗi quý"],rolemodels:[{name:"Martin Sorrell",title:"Founder, WPP & S4 Capital",why:"Built global empire từ ability to navigate và acquire. Ở tuổi 72 rời WPP rồi build lại S4 Capital từ đầu.",initials:"MS"},{name:"Richard Edelman",title:"CEO, Edelman PR",why:"Biến family firm thành independent global powerhouse — từ chối bán cho holding group dù có hàng chục cơ hội.",initials:"RE"},{name:"Maurice Lévy",title:"Former CEO, Publicis Groupe",why:"CEO 30 năm. Navigate merger Omnicom thất bại mà vẫn giữ Publicis intact và tiếp tục grow.",initials:"ML"}]},corporateNavigator:{name:"The Corporate Navigator",tag:"Client-side · Political",color:"#185FA5",colorLight:"rgba(24,95,165,0.08)",desc:"Bạn hiểu tổ chức như một hệ sinh thái — ai align với ai, quyết định nào thật sự được đưa ra trong phòng họp so với quyết định được đưa ra trước đó trong hành lang. Bạn dùng sự hiểu biết đó để make things happen cho tổ chức.",personality:"Không naive về cách power vận hành, nhưng người tốt trong archetype này dùng political intelligence để serve tổ chức, không phải chỉ bản thân. Điểm mù lớn nhất: nếu không có delivery track record cụ thể, political capital tiêu nhanh hơn tích lũy.",strengths:["Stakeholder management và organizational influence","Biết cách make things happen qua con người","Strong at prioritization — focus vào những gì thực sự move the needle","Usually on the right side of major organizational changes"],blindspots:["Cần đủ hard skill để back up influence","Có thể bị seen as maneuvering nếu không genuine","Influence without delivery is short shelf life"],recommendations:[{title:"Build một proof of substance portfolio",text:"Mỗi political win cần được backed bởi delivery win. Ensure bạn có track record cụ thể và measurable để point to."},{title:"Develop một functional expertise sâu hơn",text:"Navigator giỏi nhất thường có deep expertise trong ít nhất một function — tài chính, ops, marketing, hoặc product."},{title:"Build external network ngoài công ty",text:"Internal network là quan trọng nhưng external network cho bạn market intelligence và leverage khi needed."},{title:"Cân nhắc C-suite hoặc GM track sớm",text:"Skill set của bạn phát huy tốt nhất ở level có broad mandate. Chief of Staff, VP, GM roles là natural fit."}],adjustments:["Quarterly review deliverables bằng mắt của một skeptic","Build một analytical skill nếu chưa có","Communicate intentions clearly hơn — giảm ambiguity","Mentor someone junior — tốt cho reputation và perspective"],rolemodels:[{name:"Indra Nooyi",title:"Former CEO, PepsiCo",why:"Từ McKinsey consultant thành CEO bằng cách build relevance qua từng thế hệ leadership, mở rộng scope mỗi bước có chủ đích.",initials:"IN"},{name:"Tim Cook",title:"CEO, Apple Inc.",why:"Không cố thay thế Jobs — expand Apple theo cách chỉ ông có thể làm, qua operations mastery và organizational navigation.",initials:"TC"},{name:"Nguyễn Thị Phương Thảo",title:"CEO, VietJet Air",why:"Build VietJet không có hậu thuẫn nhà nước, navigate cả regulator lẫn incumbent. Ví dụ Việt Nam về corporate navigator ở level cao nhất.",initials:"NT"}]},generalist:{name:"The Adaptive Generalist",tag:"Hybrid",color:"#7A7265",colorLight:"rgba(122,114,101,0.08)",desc:"Bạn có gift thật sự: bước vào một room mới và trong vòng 30 phút hiểu được dynamics — ai là người thật sự quyết định, topic nào đang được nói xung quanh. Nhưng đây cũng là dấu hiệu để clarify hơn về direction.",personality:"Bạn có bản sắc đủ vững để không bị đe dọa bởi context mới. Thường là người mà cả hai phía đều muốn vì nói được cả hai thứ tiếng. Câu hỏi quan trọng nhất: 'Nếu chỉ được biết đến về một thứ, tôi muốn đó là gì?'",strengths:["Flexibility và adaptability cao trong nhiều môi trường","Ability to bridge agency và client thinking","Thường là connector và translator trong team","Low ego attachment giúp collaboration tự nhiên hơn"],blindspots:["Thiếu clear identity có thể làm yếu career positioning","Nguy cơ bị undervalued vì không perceived là specialist","Flexibility đôi khi là cách tránh commitment thay vì genuine strength"],recommendations:[{title:"Clarify your spike",text:"Generalist thành công nhất có một expertise rõ ràng rồi layer thêm breadth. Tìm một domain để intentionally go deep trong 12 tháng tới."},{title:"Consider hybrid roles deliberately",text:"In-house agency, consulting arm của corporation, hoặc growth/strategy roles ở startup phù hợp nhất — chọn có chủ đích."},{title:"Build a point of view",text:"Generalists được nhớ đến khi có strong opinions well-argued. Develop 1-2 perspectives mà bạn willing to defend consistently."},{title:"Do the agency AND client experiment",text:"Nếu chưa làm cả hai, thử có chủ đích. So sánh energy level của bạn ở hai môi trường sẽ cho câu trả lời rõ nhất."}],adjustments:["Chọn 1 skill để master trong năm tới","Viết một career thesis — mô tả giá trị độc đáo bạn mang lại","Seek feedback từ 3 người biết bạn rõ về điểm mạnh thực sự","Tham gia community của domain bạn muốn deep vào"],rolemodels:[{name:"Brian Chesky",title:"Co-founder & CEO, Airbnb",why:"Design → startup founder → CEO. Build Airbnb theo obsession về hospitality và community — mọi thứ khác serve obsession đó.",initials:"BC"},{name:"Reid Hoffman",title:"Co-founder LinkedIn / Greylock",why:"Philosopher → PayPal → LinkedIn → VC → author. Mỗi chapter serve một thesis nhất quán về networked individuals.",initials:"RH"},{name:"Kai-Fu Lee",title:"Investor & AI Researcher",why:"Computer scientist → Apple → Microsoft → Google → VC founder → AI commentator. Mỗi lần chuyển là layer thêm, không phải restart.",initials:"KL"}]}};
+// ── ARCHETYPES ────────────────────────────────────────────────────────
+const archetypes={
+  craftsman:{
+    name:"The Craftsman",tag:"Agency · Expert",color:"#7F77DD",colorLight:"rgba(127,119,221,0.08)",
+    desc:"Bạn định nghĩa bản thân qua chất lượng công việc, không qua chức danh hay công ty. Tiêu chuẩn nội tâm của bạn đôi khi cao hơn cả tổ chức đang trả lương. Agency phù hợp vì bạn cần sự đa dạng liên tục của challenge.",
+    personality:"Khi bị yêu cầu làm việc dưới mức bạn cho là đủ tốt, phản ứng đầu tiên là khó chịu thật sự — không phải chiến thuật. Bạn thường là người trong team được nhờ khi cần làm đúng, nhưng không phải khi cần 'làm nhanh và okay thôi.' Điểm mù lớn nhất: tin rằng kết quả tốt sẽ tự nói lên.",
+    strengths:["Deep expertise và technical mastery","Creative ownership mạnh — công việc là biểu đạt bản thân","Output quality cao và consistent","Không sell những gì bản thân không tin vào"],
+    blindspots:["Frustrate khi phải 'sell' nhiều hơn 'làm'","Underestimate tầm quan trọng của visibility","Bị exploit bởi người dùng craft của bạn mà không give credit"],
+    recommendations:[
+      {title:"Build a craft-to-business bridge",text:"Học cách translate chất lượng craft thành ngôn ngữ business metrics. Không phải để compromise — mà để bảo vệ công việc của mình."},
+      {title:"Tìm người champion cho bạn",text:"Agency phù hợp nhất khi bạn có một account director hoặc ECD hiểu và bán được vision của bạn. Invest vào mối quan hệ đó."},
+      {title:"Xây dựng external reputation",text:"Portfolio, awards, speaking — reputation bên ngoài là leverage tốt nhất để chọn project và client, không bị chọn."},
+      {title:"Cân nhắc independent consulting",text:"Nếu muốn minimize politics tối đa, independent consulting cho phép bạn chọn context làm việc tốt hơn."}
+    ],
+    adjustments:["Học một pitch framework cơ bản","Tham gia một business review mỗi quý","Network với account side, không chỉ creative side","Track impact của work bằng số liệu cụ thể"],
+    rolemodels:[
+      {name:"David Droga",title:"Founder Droga5 → Accenture Song",why:"Từ chối brief mà không tin vào, kể cả client lớn. Chứng minh craft có thể build business lớn mà không compromise.",initials:"DD"},
+      {name:"Virgil Abloh",title:"Designer, Creative Director LV",why:"Giữ craft identity trong suốt quá trình scale từ graphic designer đến luxury fashion director.",initials:"VA"},
+      {name:"Dieter Rams",title:"Industrial Designer, Braun",why:"10 nguyên tắc thiết kế vẫn được dạy sau 50 năm. Đặt craft lên trên trend và áp lực thị trường.",initials:"DR"}
+    ]
+  },
+  domainExpert:{
+    name:"The Domain Expert",tag:"Client-side · Expert",color:"#1D9E75",colorLight:"rgba(29,158,117,0.08)",
+    desc:"Bạn không thỏa mãn với bề mặt. Muốn hiểu tại sao một thị trường vận hành theo cách nó vận hành, không chỉ làm campaign cho thị trường đó. Với bạn, 3 năm làm một industry không phải bị 'stuck' — đó là đang build moat.",
+    personality:"Bạn đọc nhiều, hỏi nhiều câu hỏi về nguyên nhân gốc rễ, và khó chịu khi phải 'move on' sang project tiếp theo trước khi hiểu đủ sâu. Điểm mù lớn nhất: bị bypass bởi người kém expertise hơn nhưng biết chơi tổ chức tốt hơn.",
+    strengths:["Deep domain focus tạo compound advantage theo thời gian","Long-term thinking, không bị distract bởi short-term wins","Genuine ownership và accountability với kết quả","Thường là người biết nhất trong room về domain của mình"],
+    blindspots:["Internal politics ở client-side phức tạp hơn agency nhiều","Có thể bị expertise trap — quá focus vào being right thay vì being effective","Risk bị overlook trong promotion vì thiếu political awareness"],
+    recommendations:[
+      {title:"Build political intelligence song song với expertise",text:"Client-side không thưởng expertise thuần túy — nó thưởng cho expertise được đóng gói trong influence."},
+      {title:"Tìm một organizational sponsor",text:"Ai đó senior sẵn sàng champion cho bạn trong các cuộc họp bạn không được mời. Đây là asset quan trọng nhất ở client-side."},
+      {title:"Develop executive communication",text:"Học cách present insights theo ngôn ngữ của người ra quyết định, không chỉ ngôn ngữ technical."},
+      {title:"Think about career capital defensibility",text:"Domain expertise là moat tốt khi domain không bị disrupt. Ensure bạn cũng build transferable skills."}
+    ],
+    adjustments:["Attend một leadership hoặc executive program","Volunteer cho cross-functional projects","Build relationship với CFO/CMO side","Viết memos và proposals để tạo visibility nội bộ"],
+    rolemodels:[
+      {name:"Reed Hastings",title:"Co-founder & former CEO, Netflix",why:"Domain expert từ góc nhìn bên ngoài entertainment, biến hiểu biết sâu về consumer psychology thành tổ chức định nghĩa lại cả ngành.",initials:"RH"},
+      {name:"Sheryl Sandberg",title:"COO Facebook (Meta)",why:"Expert trong operations và growth, translate expertise thành organizational influence ở quy mô tỷ đô.",initials:"SS"},
+      {name:"Bob Iger",title:"CEO, The Walt Disney Company",why:"Dành hàng thập kỷ học từng layer của entertainment. Acquisition Pixar, Marvel, Star Wars là kết quả của deep expertise, không phải may mắn.",initials:"BI"}
+    ]
+  },
+  strategicOperator:{
+    name:"The Strategic Operator",tag:"Agency · Political",color:"#C9761A",colorLight:"rgba(201,118,26,0.08)",
+    desc:"Bạn đọc được động lực của con người rất nhanh — ai thật sự có quyền quyết định, ai cần được feel heard trước khi họ nghe. Bạn thích game của việc win business, build relationships và di chuyển các mảnh trên bàn cờ.",
+    personality:"Bạn enjoy việc pitching không phải vì ego, mà vì thật sự thấy hứng thú với quá trình thuyết phục. Bạn thường là người trong team mà client muốn gặp trực tiếp — vì họ cảm thấy được lắng nghe. Điểm mù lớn nhất: political capital mà không có delivery record song song sẽ tiêu nhanh hơn tích lũy.",
+    strengths:["Relationship-first mindset tạo long-term client loyalty","Biết cách manage up và sideways trong tổ chức","Strong at framing, pitching và winning business","Thăng tiến nhanh trong agency environment"],
+    blindspots:["Đôi khi prioritize positioning hơn actual output quality","Có thể bị label là too political nếu thiếu substance","Team có thể cảm thấy bị dùng như phương tiện"],
+    recommendations:[
+      {title:"Pair strategic skill với creative credibility",text:"Operator mạnh nhất vừa biết navigate vừa có substantive opinion về craft. Đừng để bị label là 'just a suit.'"},
+      {title:"Build a reputation for follow-through",text:"Political capital bị mất nhanh nhất khi over-promise và under-deliver. Reputation cho accountability là moat lâu dài."},
+      {title:"Invest vào team genuinely",text:"Build culture nơi creative talent muốn làm việc với bạn — đó là competitive advantage thật, không phải chiến thuật."},
+      {title:"Consider founding your own agency",text:"Agency environment give bạn nhiều nhất khi bạn có equity và autonomy. Nếu có vision, con đường founder là natural next step."}
+    ],
+    adjustments:["Spend 1 ngày mỗi tháng với creative/strategy team","Institute regular feedback loops về leadership style","Track win rate và revenue metrics closely","Đọc về craft của ngành bạn serve mỗi quý"],
+    rolemodels:[
+      {name:"Martin Sorrell",title:"Founder, WPP & S4 Capital",why:"Built global empire từ ability to navigate và acquire. Ở tuổi 72 rời WPP rồi build lại S4 Capital từ đầu — agency operator thuần chất.",initials:"MS"},
+      {name:"Richard Edelman",title:"CEO, Edelman PR",why:"Biến family firm thành independent global powerhouse — từ chối bán cho holding group dù có hàng chục cơ hội suốt 40 năm.",initials:"RE"},
+      {name:"Maurice Lévy",title:"Former CEO, Publicis Groupe",why:"CEO 30 năm. Navigate thất bại merger với Omnicom mà vẫn giữ Publicis intact và tiếp tục grow mạnh.",initials:"ML"}
+    ]
+  },
+  corporateNavigator:{
+    name:"The Corporate Navigator",tag:"Client-side · Political",color:"#185FA5",colorLight:"rgba(24,95,165,0.08)",
+    desc:"Bạn hiểu tổ chức như một hệ sinh thái — ai align với ai, quyết định nào thật sự được đưa ra trong phòng họp so với quyết định được đưa ra trước đó trong hành lang. Bạn dùng sự hiểu biết đó để make things happen.",
+    personality:"Không naive về cách power vận hành, nhưng người tốt trong archetype này dùng political intelligence để serve tổ chức, không phải chỉ bản thân. Điểm mù lớn nhất: nếu không có delivery track record cụ thể, political capital tiêu nhanh hơn tích lũy.",
+    strengths:["Stakeholder management và organizational influence","Biết cách make things happen qua con người","Strong at prioritization — focus vào những gì thực sự move the needle","Usually on the right side of major organizational changes"],
+    blindspots:["Cần đủ hard skill để back up influence — substance matters","Có thể bị seen as maneuvering nếu không genuine","Influence without delivery is short shelf life"],
+    recommendations:[
+      {title:"Build một proof of substance portfolio",text:"Mỗi political win cần được backed bởi delivery win. Ensure bạn có track record cụ thể và measurable để point to."},
+      {title:"Develop một functional expertise sâu hơn",text:"Navigator giỏi nhất thường có deep expertise trong ít nhất một function — tài chính, ops, marketing, hoặc product."},
+      {title:"Build external network ngoài công ty",text:"Internal network là quan trọng nhưng external network cho bạn market intelligence và leverage khi needed."},
+      {title:"Cân nhắc C-suite hoặc GM track sớm",text:"Skill set của bạn phát huy tốt nhất ở level có broad mandate. Chief of Staff, VP, GM roles là natural fit."}
+    ],
+    adjustments:["Quarterly review deliverables bằng mắt của một skeptic","Build một analytical skill nếu chưa có","Communicate intentions clearly hơn — giảm ambiguity","Mentor someone junior — tốt cho reputation và perspective"],
+    rolemodels:[
+      {name:"Indra Nooyi",title:"Former CEO, PepsiCo",why:"Từ McKinsey consultant thành CEO bằng cách build relevance qua từng thế hệ leadership, mở rộng scope mỗi bước có chủ đích.",initials:"IN"},
+      {name:"Tim Cook",title:"CEO, Apple Inc.",why:"Không cố thay thế Jobs — expand Apple theo cách chỉ ông có thể làm, qua operations mastery và organizational navigation.",initials:"TC"},
+      {name:"Safra Catz",title:"CEO, Oracle",why:"Từ investment banker trở thành Co-CEO Oracle. Hình mẫu của việc build influence từ financial expertise, sau đó expand thành organizational control.",initials:"SC"}
+    ]
+  },
+  generalist:{
+    name:"The Adaptive Generalist",tag:"Hybrid",color:"#7A7265",colorLight:"rgba(122,114,101,0.08)",
+    desc:"Bạn có gift thật sự: bước vào một room mới và trong vòng 30 phút hiểu được dynamics — ai là người thật sự quyết định, topic nào đang được nói xung quanh. Nhưng đây cũng là dấu hiệu để clarify hơn về direction.",
+    personality:"Bạn có bản sắc đủ vững để không bị đe dọa bởi context mới. Thường là người mà cả hai phía đều muốn vì nói được cả hai thứ tiếng — agency và client. Câu hỏi quan trọng nhất: 'Nếu chỉ được biết đến về một thứ, tôi muốn đó là gì?'",
+    strengths:["Flexibility và adaptability cao trong nhiều môi trường","Ability to bridge agency và client thinking","Thường là connector và translator trong team","Low ego attachment giúp collaboration tự nhiên hơn"],
+    blindspots:["Thiếu clear identity có thể làm yếu career positioning","Nguy cơ bị undervalued vì không perceived là specialist","Flexibility đôi khi là cách tránh commitment thay vì genuine strength"],
+    recommendations:[
+      {title:"Clarify your spike",text:"Generalist thành công nhất có một expertise rõ ràng rồi layer thêm breadth. Tìm một domain để intentionally go deep trong 12 tháng tới."},
+      {title:"Consider hybrid roles deliberately",text:"In-house agency, consulting arm của corporation, hoặc growth/strategy roles ở startup phù hợp nhất — chọn có chủ đích."},
+      {title:"Build a point of view",text:"Generalists được nhớ đến khi có strong opinions well-argued. Develop 1-2 perspectives mà bạn willing to defend consistently."},
+      {title:"Do the agency AND client experiment",text:"Nếu chưa làm cả hai, thử có chủ đích. So sánh energy level của bạn ở hai môi trường sẽ cho câu trả lời rõ nhất."}
+    ],
+    adjustments:["Chọn 1 skill để master trong năm tới","Viết một career thesis — mô tả giá trị độc đáo bạn mang lại","Seek feedback từ 3 người biết bạn rõ về điểm mạnh thực sự","Tham gia community của domain bạn muốn deep vào"],
+    rolemodels:[
+      {name:"Brian Chesky",title:"Co-founder & CEO, Airbnb",why:"Design → startup founder → CEO. Build Airbnb theo obsession về hospitality và community — mọi thứ khác serve obsession đó.",initials:"BC"},
+      {name:"Reid Hoffman",title:"Co-founder LinkedIn / Greylock",why:"Philosopher → PayPal → LinkedIn → VC → author. Mỗi chapter serve một thesis nhất quán về networked individuals.",initials:"RH"},
+      {name:"Kai-Fu Lee",title:"Investor & AI Researcher",why:"Computer scientist → Apple → Microsoft → Google → VC founder → AI commentator. Mỗi lần chuyển là layer thêm, không phải restart.",initials:"KL"}
+    ]
+  }
+};
 
+// ── STATE ─────────────────────────────────────────────────────────────
 let current=0,answers=new Array(Q.length).fill(null),sessionId='S-'+Date.now().toString(36).toUpperCase();
 
+// ── QUIZ ──────────────────────────────────────────────────────────────
 function startQuiz(){document.getElementById('intro').classList.remove('active');document.getElementById('quiz').classList.add('active');renderQ()}
 
-function renderQ(){const q=Q[current];document.getElementById('progress-fill').style.width=(current/Q.length*100)+'%';document.getElementById('progress-label').textContent=(current+1)+' / '+Q.length;document.getElementById('dec-num').textContent=String(current+1).padStart(2,'0');document.getElementById('q-group').textContent=q.group;document.getElementById('q-dim').textContent=q.dim;document.getElementById('q-num').textContent='Câu '+(current+1);document.getElementById('q-text').textContent=q.text;const ctx=document.getElementById('q-context');if(q.context){ctx.textContent=q.context;ctx.style.display='block'}else ctx.style.display='none';document.getElementById('back-btn').disabled=current===0;const nb=document.getElementById('next-btn');nb.disabled=answers[current]===null;nb.innerHTML=current===Q.length-1?'Xem kết quả <span>→</span>':'Tiếp theo <span>→</span>';const optDiv=document.getElementById('options');optDiv.innerHTML='';q.options.forEach((opt,i)=>{const btn=document.createElement('button');btn.className='opt'+(answers[current]===i?' selected':'');btn.innerHTML='<span class="opt-letter">'+opt.l+'</span><span class="opt-text">'+opt.t+'</span>';btn.onclick=()=>selectOpt(i);optDiv.appendChild(btn)});const body=document.getElementById('q-body');body.classList.remove('fade-in');void body.offsetWidth;body.classList.add('fade-in')}
+function renderQ(){
+  const q=Q[current];
+  document.getElementById('progress-fill').style.width=(current/Q.length*100)+'%';
+  document.getElementById('progress-label').textContent=(current+1)+' / '+Q.length;
+  document.getElementById('dec-num').textContent=String(current+1).padStart(2,'0');
+  document.getElementById('q-group').textContent=q.group;
+  document.getElementById('q-dim').textContent=q.dim;
+  document.getElementById('q-num').textContent='Câu '+(current+1);
+  document.getElementById('q-text').textContent=q.text;
+  const ctx=document.getElementById('q-context');
+  if(q.context){ctx.textContent=q.context;ctx.style.display='block'}else ctx.style.display='none';
+  document.getElementById('back-btn').disabled=current===0;
+  const nb=document.getElementById('next-btn');
+  nb.disabled=answers[current]===null;
+  nb.innerHTML=current===Q.length-1?'Xem kết quả <span>→</span>':'Tiếp theo <span>→</span>';
+  const optDiv=document.getElementById('options');
+  optDiv.innerHTML='';
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt'+(answers[current]===i?' selected':'');
+    btn.innerHTML='<span class="opt-letter">'+opt.l+'</span><span class="opt-text">'+opt.t+'</span>';
+    btn.onclick=()=>selectOpt(i);
+    optDiv.appendChild(btn);
+  });
+  const body=document.getElementById('q-body');
+  body.classList.remove('fade-in');void body.offsetWidth;body.classList.add('fade-in');
+}
 
 function selectOpt(i){answers[current]=i;document.querySelectorAll('.opt').forEach((el,j)=>el.classList.toggle('selected',j===i));document.getElementById('next-btn').disabled=false}
-
 function goBack(){if(current>0){current--;renderQ()}}
-
 function goNext(){if(answers[current]===null)return;if(current<Q.length-1){current++;renderQ()}else computeResult()}
 
-function computeResult(){let c=0,e=0,p=0;const al=[];const dimScores={};Q.forEach((q,i)=>{const s=q.options[answers[i]].s;c+=s.c;e+=s.e;p+=s.p;al.push(q.options[answers[i]].l);if(!dimScores[q.dim])dimScores[q.dim]=[];dimScores[q.dim].push({e:s.e})});const max=54;const ag=Math.round(Math.max(0,Math.min(100,50-(c/max*50)))),ex=Math.round(Math.max(0,Math.min(100,50+(e/max*50)))),po=Math.round(Math.max(0,Math.min(100,50+(p/max*50)))),bu=100-ex;const isAg=ag>=50,isEx=ex>=58,isHP=po>=58;const allMiddle=ag>=38&&ag<=62&&ex>=38&&ex<=62&&po>=38&&po<=62;let key;if(!allMiddle){if(isAg&&isEx)key='craftsman';else if(!isAg&&isEx&&!isHP)key='domainExpert';else if(isAg&&isHP&&!isEx)key='strategicOperator';else if(!isAg&&isHP&&!isEx)key='corporateNavigator';else if(isEx)key=ag>=50?'craftsman':'domainExpert';else if(isHP)key=ag>=50?'strategicOperator':'corporateNavigator';else if(isAg)key=po>=50?'strategicOperator':'craftsman';else key='corporateNavigator'}else key='generalist';let highVariance=false;Object.values(dimScores).forEach(arr=>{if(arr.length>=2){const v=arr.map(x=>x.e);if(Math.max(...v)-Math.min(...v)>=4)highVariance=true}});const arch=archetypes[key];const scores={agency:ag,expert:ex,politics:po,business:bu};document.getElementById('saving-overlay').classList.add('show');submitToAPI({session_id:sessionId,answers:al,scores,archetype:arch.name,environment:arch.tag}).finally(()=>{document.getElementById('saving-overlay').classList.remove('show');showResult(arch,scores,highVariance)})}
+// ── SCORING ───────────────────────────────────────────────────────────
+function computeResult(){
+  let c=0,e=0,p=0;
+  const al=[];
+  const dimScores={};
+  Q.forEach((q,i)=>{
+    const s=q.options[answers[i]].s;
+    c+=s.c;e+=s.e;p+=s.p;
+    al.push(q.options[answers[i]].l);
+    if(!dimScores[q.dim])dimScores[q.dim]=[];
+    dimScores[q.dim].push({e:s.e,p:s.p,c:s.c});
+  });
 
-async function submitToAPI(payload){try{const res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!res.ok)throw new Error('API error');return await res.json()}catch(e){console.warn('Could not save:',e.message);const all=JSON.parse(localStorage.getItem('assessmentFallback')||'[]');all.push({...payload,timestamp:new Date().toISOString(),local:true});localStorage.setItem('assessmentFallback',JSON.stringify(all))}}
+  const max=54;
+  const ag=Math.round(Math.max(0,Math.min(100,50-(c/max*50))));
+  const ex=Math.round(Math.max(0,Math.min(100,50+(e/max*50))));
+  const po=Math.round(Math.max(0,Math.min(100,50+(p/max*50))));
+  const bu=100-ex;
 
-function showResult(arch,scores,highVariance){document.getElementById('quiz').classList.remove('active');document.getElementById('dec-num').textContent='✦';const rs=document.getElementById('result');rs.classList.add('active');const sr=[{label:'Agency orientation',value:scores.agency,color:'#7F77DD'},{label:'Expert mindset',value:scores.expert,color:'#1D9E75'},{label:'Politics IQ',value:scores.politics,color:'#C9761A'},{label:'Business orientation',value:scores.business,color:'#185FA5'}];const cn=highVariance?'<div class="consistency-note">⚠ Một số câu trả lời của bạn có variance cao trong cùng dimension — bạn có thể đang ở giai đoạn chuyển tiếp hoặc có profile phức tạp. Kết quả dưới đây là xu hướng chính.</div>':'';rs.innerHTML='<div class="result-masthead fade-in"><div class="result-eyebrow">Kết quả · '+sessionId+'</div><div class="archetype-name">'+arch.name+'</div><div class="archetype-tag" style="border-color:'+arch.color+';color:'+arch.color+'">'+arch.tag+'</div><p class="archetype-desc">'+arch.desc+'</p></div>'+cn+'<div class="fade-in" style="margin-bottom:48px"><div class="section-label">Điểm số theo chiều</div>'+sr.map(s=>'<div class="score-row"><span class="score-name">'+s.label+'</span><div class="score-track"><div class="score-bar" style="width:0%;background:'+s.color+'" data-target="'+s.value+'"></div></div><span class="score-pct">'+s.value+'%</span></div>').join('')+'</div><div class="fade-in" style="margin-bottom:48px"><div class="section-label">Tính cách & Profile</div><div class="insight-card" style="border-color:'+arch.color+';margin-bottom:16px"><div class="insight-card-label" style="color:'+arch.color+'">Personality Read</div><div class="insight-card-text">'+arch.personality+'</div></div><div class="insights-grid"><div class="insight-card"><div class="insight-card-label" style="color:'+arch.color+'">Điểm mạnh</div><div class="insight-card-text">'+arch.strengths.map(s=>'<div style="margin-bottom:6px">· '+s+'</div>').join('')+'</div></div><div class="insight-card"><div class="insight-card-label" style="color:#C9761A">Blind spots</div><div class="insight-card-text">'+arch.blindspots.map(s=>'<div style="margin-bottom:6px">· '+s+'</div>').join('')+'</div></div></div></div><div class="fade-in" style="margin-bottom:48px"><div class="section-label">Đề xuất cho bạn</div>'+arch.recommendations.map((r,i)=>'<div class="rec-item"><div class="rec-num">0'+(i+1)+'</div><div><div class="rec-title">'+r.title+'</div><div class="rec-text">'+r.text+'</div></div></div>').join('')+'</div><div class="adj-section fade-in"><div class="adj-title">Những điều chỉnh nhỏ, impact lớn</div><p class="adj-sub">Các hành động cụ thể bạn có thể bắt đầu trong tháng tới:</p><div class="adj-tags">'+arch.adjustments.map(a=>'<span class="adj-tag">'+a+'</span>').join('')+'</div></div><div class="fade-in" style="margin-bottom:48px"><div class="section-label">Người bạn có thể học từ</div><div class="rolemodels-grid">'+arch.rolemodels.map(r=>'<div class="rolemodel-card"><div style="position:absolute;top:0;left:0;width:3px;height:100%;background:'+arch.color+';opacity:.4"></div><div class="rolemodel-initials" style="background:'+arch.colorLight+';color:'+arch.color+'">'+r.initials+'</div><div class="rolemodel-name">'+r.name+'</div><div class="rolemodel-title">'+r.title+'</div><div class="rolemodel-why">'+r.why+'</div></div>').join('')+'</div></div><div class="result-footer fade-in"><span class="saved-badge">✓ Đã lưu vào Google Sheets</span><button class="btn-action secondary" onclick="resetQuiz()">Làm lại từ đầu</button></div>';setTimeout(()=>{document.querySelectorAll('.score-bar[data-target]').forEach(bar=>{bar.style.width=bar.dataset.target+'%'})},200)}
+  const isAg=ag>=50;
+  const isEx=ex>=58;
+  const isHP=po>=58;
 
-function resetQuiz(){current=0;answers=new Array(Q.length).fill(null);sessionId='S-'+Date.now().toString(36).toUpperCase();document.getElementById('result').classList.remove('active');document.getElementById('dec-num').textContent='01';document.getElementById('quiz').classList.add('active');renderQ()}
+  // Generalist only when ALL axes are in the middle band
+  const allMiddle=ag>=38&&ag<=62&&ex>=38&&ex<=62&&po>=38&&po<=62;
+
+  let key;
+  if(allMiddle){
+    key='generalist';
+  } else {
+    // Find dominant axis first
+    const agencyDiff=Math.abs(ag-50);
+    const expertDiff=Math.abs(ex-50);
+    const politicsDiff=Math.abs(po-50);
+
+    if(isAg&&isEx) key='craftsman';
+    else if(!isAg&&isEx&&!isHP) key='domainExpert';
+    else if(isAg&&isHP&&!isEx) key='strategicOperator';
+    else if(!isAg&&isHP&&!isEx) key='corporateNavigator';
+    else if(isEx) key=ag>=50?'craftsman':'domainExpert';
+    else if(isHP){
+      // Politics is dominant — determine agency vs client by agency score
+      key=ag>=50?'strategicOperator':'corporateNavigator';
+    } else if(isAg){
+      // Agency is dominant but neither expert nor politics peak
+      // Route to Strategic Operator if politics is the second highest, else Craftsman
+      key=politicsDiff>=expertDiff?'strategicOperator':'craftsman';
+    } else {
+      // Client leaning — route by second highest axis
+      key=politicsDiff>=expertDiff?'corporateNavigator':'domainExpert';
+    }
+  }
+
+  // Consistency check
+  let highVariance=false;
+  Object.values(dimScores).forEach(arr=>{
+    if(arr.length>=2){
+      const eVals=arr.map(x=>x.e);
+      if(Math.max(...eVals)-Math.min(...eVals)>=4)highVariance=true;
+    }
+  });
+
+  const arch=archetypes[key];
+  const scores={agency:ag,expert:ex,politics:po,business:bu};
+  document.getElementById('saving-overlay').classList.add('show');
+  submitToAPI({session_id:sessionId,answers:al,scores,archetype:arch.name,environment:arch.tag})
+    .finally(()=>{document.getElementById('saving-overlay').classList.remove('show');showResult(arch,scores,highVariance)});
+}
+
+async function submitToAPI(payload){
+  try{
+    const res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!res.ok)throw new Error('API error');
+    return await res.json();
+  }catch(e){
+    console.warn('Could not save:',e.message);
+    const all=JSON.parse(localStorage.getItem('assessmentFallback')||'[]');
+    all.push({...payload,timestamp:new Date().toISOString(),local:true});
+    localStorage.setItem('assessmentFallback',JSON.stringify(all));
+  }
+}
+
+// ── RESULT ────────────────────────────────────────────────────────────
+function showResult(arch,scores,highVariance){
+  document.getElementById('quiz').classList.remove('active');
+  document.getElementById('dec-num').textContent='✦';
+  const rs=document.getElementById('result');
+  rs.classList.add('active');
+
+  const sr=[
+    {label:'Agency orientation',value:scores.agency,color:'#7F77DD'},
+    {label:'Expert mindset',value:scores.expert,color:'#1D9E75'},
+    {label:'Politics IQ',value:scores.politics,color:'#C9761A'},
+    {label:'Business orientation',value:scores.business,color:'#185FA5'}
+  ];
+
+  const cn=highVariance
+    ?'<div class="consistency-note">⚠ Một số câu trả lời của bạn có variance cao trong cùng dimension — bạn có thể đang ở giai đoạn chuyển tiếp hoặc có profile phức tạp. Kết quả dưới đây là xu hướng chính.</div>'
+    :'';
+
+  rs.innerHTML=`
+    <div class="result-masthead fade-in">
+      <div class="result-eyebrow">Kết quả · ${sessionId}</div>
+      <div class="archetype-name">${arch.name}</div>
+      <div class="archetype-tag" style="border-color:${arch.color};color:${arch.color}">${arch.tag}</div>
+      <p class="archetype-desc">${arch.desc}</p>
+    </div>
+    ${cn}
+    <div class="fade-in" style="margin-bottom:48px">
+      <div class="section-label">Điểm số theo chiều</div>
+      ${sr.map(s=>`<div class="score-row"><span class="score-name">${s.label}</span><div class="score-track"><div class="score-bar" style="width:0%;background:${s.color}" data-target="${s.value}"></div></div><span class="score-pct">${s.value}%</span></div>`).join('')}
+    </div>
+    <div class="fade-in" style="margin-bottom:48px">
+      <div class="section-label">Tính cách & Profile</div>
+      <div class="insight-card" style="border-color:${arch.color};margin-bottom:16px">
+        <div class="insight-card-label" style="color:${arch.color}">Personality Read</div>
+        <div class="insight-card-text">${arch.personality}</div>
+      </div>
+      <div class="insights-grid">
+        <div class="insight-card">
+          <div class="insight-card-label" style="color:${arch.color}">Điểm mạnh</div>
+          <div class="insight-card-text">${arch.strengths.map(s=>'<div style="margin-bottom:6px">· '+s+'</div>').join('')}</div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-card-label" style="color:#C9761A">Blind spots</div>
+          <div class="insight-card-text">${arch.blindspots.map(s=>'<div style="margin-bottom:6px">· '+s+'</div>').join('')}</div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-in" style="margin-bottom:48px">
+      <div class="section-label">Đề xuất cho bạn</div>
+      ${arch.recommendations.map((r,i)=>`<div class="rec-item"><div class="rec-num">0${i+1}</div><div><div class="rec-title">${r.title}</div><div class="rec-text">${r.text}</div></div></div>`).join('')}
+    </div>
+    <div class="adj-section fade-in">
+      <div class="adj-title">Những điều chỉnh nhỏ, impact lớn</div>
+      <p class="adj-sub">Các hành động cụ thể bạn có thể bắt đầu trong tháng tới:</p>
+      <div class="adj-tags">${arch.adjustments.map(a=>'<span class="adj-tag">'+a+'</span>').join('')}</div>
+    </div>
+    <div class="fade-in" style="margin-bottom:48px">
+      <div class="section-label">Người bạn có thể học từ</div>
+      <div class="rolemodels-grid">
+        ${arch.rolemodels.map(r=>`<div class="rolemodel-card"><div style="position:absolute;top:0;left:0;width:3px;height:100%;background:${arch.color};opacity:.4"></div><div class="rolemodel-initials" style="background:${arch.colorLight};color:${arch.color}">${r.initials}</div><div class="rolemodel-name">${r.name}</div><div class="rolemodel-title">${r.title}</div><div class="rolemodel-why">${r.why}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="result-footer fade-in">
+      <span class="saved-badge">✓ Đã lưu vào Google Sheets</span>
+      <button class="btn-action secondary" onclick="resetQuiz()">Làm lại từ đầu</button>
+    </div>
+  `;
+
+  setTimeout(()=>{
+    document.querySelectorAll('.score-bar[data-target]').forEach(bar=>{bar.style.width=bar.dataset.target+'%'});
+  },200);
+}
+
+function resetQuiz(){
+  current=0;answers=new Array(Q.length).fill(null);
+  sessionId='S-'+Date.now().toString(36).toUpperCase();
+  document.getElementById('result').classList.remove('active');
+  document.getElementById('dec-num').textContent='01';
+  document.getElementById('quiz').classList.add('active');
+  renderQ();
+}
 </script>
 </body>
 </html>
